@@ -57,7 +57,7 @@ public class BrowseFrame extends JFrame {
 	
 	private JButton menu;
 	
-	//ArrayList<Book> cart= new ArrayList(); //
+	
 	
 	BookDBAccess bookdba= new BookDBAccess();
 	
@@ -270,6 +270,22 @@ public class BrowseFrame extends JFrame {
 	    		//it finds a book by the entry number in the datbase which is the primary key
 	    		//so when they are looking at books and want to add one to the cart, they type in the entry number
 	    		//which is displayed in the cart
+	    		String entrynum=  addToCartField.getText();//added
+	    		int Entry= Integer.parseInt(entrynum);//added
+	    		
+	    		try {//make void-just do it
+					Book book=bookdba.getBookByEntryNum(Entry);//added
+					
+					//cart.add(book);//added
+					
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	    		
 	 	    	dispose();
 	 	    	JFrame frame = new CartFrame();
 	 	   		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

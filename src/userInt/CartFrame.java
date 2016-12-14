@@ -3,12 +3,16 @@ package userInt;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
+
+import DBAccessClasses.BookDBAccess;
+import ObjectClasses.Book;
 
 public class CartFrame extends JFrame {
 	private static final int FRAME_HEIGHT = 450;
@@ -18,6 +22,13 @@ public class CartFrame extends JFrame {
 	private JButton addAnotherBookButton;
 	private JButton checkoutButton;
 	private JButton menu;
+	
+	//copy arraylist in a method then display the copy
+	//add arraylist here and have method heree to take book param and add to it
+	BookDBAccess bookdba= new BookDBAccess();//create object to get access 
+	
+	ArrayList<Book>cart=bookdba.getListofBooks();//create and fill arraylist
+	
 	public CartFrame() 
 	{
 		createTextArea();
@@ -33,7 +44,11 @@ public class CartFrame extends JFrame {
 		//searchResultField.setText();
 		cartField.setEditable(false);
 		//cartField.setText(cart.get(0)); //for Alexanders part 
-	       
+		
+		for (Book books : cart) {//goes through arraylist to prints it to the textarea
+		    cartField.append(books.toString());
+		    cartField.append("\n");
+		}  
 	}
 	
 	private void createButtons()
