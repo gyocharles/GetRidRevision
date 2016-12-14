@@ -4,7 +4,7 @@ public class Book {
 private String BookTitle;
 private String AuthorLastname;//maybe to separate first and last name for sake of prepared statement
 private String AuthorFirstname;
-private int ISBN;
+private String ISBN;
 private double Price;
 private String Condition;
 private int EntryNumber;//added for the sake of finding books by entry number
@@ -12,7 +12,7 @@ private int EntryNumber;//added for the sake of finding books by entry number
 private int SellerAccNum;//added for the sake of finding posts by seller account number
 private String SellerName;//added for the seeing the seller's name when book info is displayed
 
-public Book(int EntryNumber, int SellerAccNum, String SellerName, String BookTitle, String AuthorFirstname, String AuthorLastname, int ISBN, double Price, String Condition)
+public Book(int EntryNumber, int SellerAccNum, String SellerName, String BookTitle, String AuthorFirstname, String AuthorLastname, String iSBN2, double Price, String Condition)
 {
 	this.EntryNumber=EntryNumber;//added
 	this.SellerAccNum=SellerAccNum;//added
@@ -20,7 +20,7 @@ public Book(int EntryNumber, int SellerAccNum, String SellerName, String BookTit
 	this.BookTitle=BookTitle;
 	this.AuthorFirstname=AuthorFirstname;//added
 	this.AuthorLastname=AuthorLastname;//added
-	this.ISBN=ISBN;
+	this.ISBN=iSBN2;
 	this.Price=Price;
 	this.Condition=Condition;
 }
@@ -74,10 +74,10 @@ public String getBookTitle()
 	return BookTitle;
 }
 
-public void setISBN(int ISBN) {
+public void setISBN(String ISBN) {
 	this.ISBN = ISBN;
 }
-public int getISBN() {
+public String getISBN() {
 	return ISBN;
 }
 

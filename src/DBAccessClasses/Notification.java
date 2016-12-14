@@ -7,30 +7,19 @@ package DBAccessClasses;
  * @author gchar158
  *
  */
-import java.util.Properties;
-
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import java.util.*;
+ 
 
 import ObjectClasses.Book;
 
+import javax.activation.*;
 public class Notification {
-final String from="GetRidofTextbooks@gmail.com"; 
-final String pswrd="getridemailpassword";
-
-//String host="localhost";//may have to fully declare this variable
-Properties prop= new Properties();
-//prop.put("mail.smtp.auth", "true");
-//prop.put()
-
-
-
+String from;//an email set up for GetRid 
+String host="localhost";//may have to fully declare this variable
+	
 	public void sendToSeller(String seller, Book book){//pass the email/name of the seller and the book being sold
-		
+		Properties properties= new Properties();
+		properties.setProperty("mail.smtp.host", host);
 
 	      // Get the default Session object.
 	      Session session = Session.getDefaultInstance(properties);
