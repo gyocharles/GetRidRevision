@@ -28,7 +28,7 @@ public class DBConnection {
 	}
 	public static Connection getConnection()throws SQLException{
 		if(conn==null)
-		conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/book?autoReconnect=true&useSSL=false", "root", "nanuka88");
+		conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/book?autoReconnect=true&useSSL=false", "root", "ganam");
 		return conn;
 	}
 

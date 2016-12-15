@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,6 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import DBAccessClasses.UserDBAccess;
 
 public class AccountManagementFrame extends JFrame {
 	private static final int FRAME_HEIGHT = 450;
@@ -38,11 +41,17 @@ public class AccountManagementFrame extends JFrame {
 	private JLabel expirationDateLabel;
 	private JTextField expirationDateField;
 	
-	private JLabel cvcCodeLabel;
-	private JTextField cvcCodeField;
+	private JLabel cvcCodeLabel;//changed
+	private JTextField cvcCodeField;//changed
 	
 	private JButton menuButton;
 	private JButton updateAccountButton;
+	
+	private JLabel addressLabel;//added
+	private JTextField addressField;//added
+	
+	
+	UserDBAccess userdba= new UserDBAccess();//added
 	
 	public AccountManagementFrame() 
 	{
@@ -67,8 +76,11 @@ public class AccountManagementFrame extends JFrame {
 	         cardNumberField = new JTextField(FIELD_WIDTH);
 	         expirationDateLabel = new JLabel("   Expiration Date: ");	   
 	         expirationDateField = new JTextField(FIELD_WIDTH);
-	         expirationDateLabel = new JLabel("   CVC Security Code: ");	   
-	         expirationDateField = new JTextField(FIELD_WIDTH);
+	         cvcCodeLabel = new JLabel("   CVC Security Code: ");//changed	   
+	         cvcCodeField = new JTextField(FIELD_WIDTH);//changed
+	         addressLabel=new JLabel("   Address: ");//added
+	         addressField=new JTextField(FIELD_WIDTH);//added
+	         
 	        }
 	
 	private void createButtons()
@@ -95,7 +107,22 @@ public class AccountManagementFrame extends JFrame {
 	    	{
 	    		//TODO send to backend User table the info in the textfields
 	    		//update based on username primary key to find the row in table and update the other infos
-		    		
+		    	String user=usernameField.getText();	
+	    		String email= emailField.getText();
+	    		String first=firstNameField.getText();
+	    		String last=lastNameField.getText();
+	    		String card=cardNumberField.getText();
+	    		String cvc=cvcCodeField.getText();//change to varChar
+	    		String expire= expirationDateField.getText();
+	    		String address=addressField.getText();
+	    		
+	    		try {
+					userdba.updateInfo(first, last, address, address, card, email, cvc);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}//new method
+	    		
 	    		dispose();
 	    		JOptionPane.showMessageDialog(null, "Your Account has been updated.");
 	    		JFrame frame = new MenuFrame();
