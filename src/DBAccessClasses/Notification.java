@@ -12,8 +12,16 @@ public class Notification {
 	static Properties mailServerProperties;
 	static Session getMailSession;
 	static MimeMessage generateMailMessage;
- 
-	public static void generateAndSendEmail(String userEmail) throws AddressException, MessagingException { //pass through the user's email that he/she types in
+	private static String userE;
+	private static String cartI;
+	
+	public Notification(String userEmail, String cartInfo)
+	{
+		 userE = userEmail;
+		 cartI = cartInfo;
+	}
+	
+	public static void generateAndSendEmail(String userEmail, String cartInfo) throws AddressException, MessagingException { //pass through the user's email that he/she types in
  
 		// Step1
 		System.out.println("\n 1st ===> setup Mail Server Properties..");
@@ -24,14 +32,15 @@ public class Notification {
 		System.out.println("Mail Server Properties have been setup successfully..");
  
 		// Step2
-		String userE = userEmail;
-		
+		 userE = userEmail;
+		 cartI = cartInfo;
+				
 		System.out.println("\n\n 2nd ===> get Mail Session..");
 		getMailSession = Session.getDefaultInstance(mailServerProperties, null);
 		generateMailMessage = new MimeMessage(getMailSession);
 		generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(userE));
 		generateMailMessage.setSubject("Payment Confirmation");
-		String emailBody = "This email is to confirm your transaction for the book(s)...Thank you for using GetRid; we will update you once the book(s) has been shipped to you!" + "<br><br> Regards, <br>GetRid Admin";
+		String emailBody = "This email is to confirm your transaction for the book(s)..." + "\n" + cartI + "\n" + "Thank you for using GetRid; we will update you once the book(s) has been shipped to you!" + "<br><br> Regards, <br>GetRid Admin";
 		generateMailMessage.setContent(emailBody, "text/html");
 		System.out.println("Mail Session has been created successfully..");
  

@@ -85,7 +85,8 @@ public class CheckoutFrame extends JFrame {
 		ActionListener CheckoutAndPayListener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// check if IsLoggedIn = true, then add up all prices of books in cart and move to paymentFrame
-				//check if IsLoggedIn = false, then go to LogInFrame
+			if(Variables.isLoggedIn)
+			{
 
 				double sum=0.0;
 				String BookTitle;
@@ -117,7 +118,7 @@ public class CheckoutFrame extends JFrame {
 				Notification jv = new Notification();
 				String userEmail = JOptionPane.showInputDialog(null, "Thank you for your purchase. Please input your email address for the comfirmation email to be sent out:");
 				try {
-					jv.generateAndSendEmail(userEmail);
+					jv.generateAndSendEmail(userEmail, Variables.cartInfo);
 				} catch (MessagingException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -144,6 +145,17 @@ public class CheckoutFrame extends JFrame {
 				frame.setTitle("GetRid - Menu");
 				frame.setResizable(false);
 				frame.setVisible(true);
+			}
+    		else
+    		{
+	 	   		//check if IsLoggedIn = false, then go to LogInFrame
+    			dispose();
+ 	    		JFrame frame = new LogInFrame();
+ 	   			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+ 	   			frame.setTitle("GetRid - Log In");
+ 	   			frame.setResizable(false);
+ 	   			frame.setVisible(true);
+    		}
 			}
 
 			};
