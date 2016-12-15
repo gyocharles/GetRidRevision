@@ -138,11 +138,7 @@ public class CheckoutFrame extends JFrame {
 				}
 				//t1.retrieveTransaction();          //The code that's commented out serves as a "receipt" for when a user checks out.
 
-
-
-				dispose();
-				JOptionPane.showMessageDialog(null, "Thank you for your purchase. A confirmation email of the transaction will be sent out. Please give 7-10 days for processing and shipment.");
-				
+				dispose();				
 				JFrame frame = new MenuFrame();
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setTitle("GetRid - Menu");

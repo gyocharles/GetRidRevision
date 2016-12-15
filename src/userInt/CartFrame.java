@@ -126,12 +126,22 @@ private void createTextArea()
 	    
 	    ActionListener MenuListener = new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	 	    	dispose();
-	 	    	JFrame frame = new MenuFrame();
-	 	   		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	 	   		frame.setTitle("GetRid - Menu");
-	 	   		frame.setResizable(false);
-	 	   		frame.setVisible(true);
+	    		if(Variables.isLoggedIn) 
+				{
+					dispose();
+					JFrame frame = new MenuFrame();
+					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					frame.setTitle("GetRid - Menu");
+					frame.setVisible(true);
+				}
+				else
+				{
+					dispose();
+					JFrame frame = new LogInFrame();
+					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					frame.setTitle("GetRid - Log In");
+					frame.setVisible(true);
+				}
 	    	}
 	    };
 	    
