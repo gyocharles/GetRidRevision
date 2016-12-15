@@ -7,8 +7,8 @@ import javax.swing.*;
 
 public class WelcomeFrame extends JFrame {
 	
-	private static final int FRAME_HEIGHT = 450;
-	private static final int FRAME_WIDTH = 450;
+	private static final int FRAME_HEIGHT = 550;
+	private static final int FRAME_WIDTH = 550;
 	private JTextArea welcomeField;
 	private JPanel welcomePanel;
 	private String welcomeText;
@@ -28,11 +28,11 @@ public class WelcomeFrame extends JFrame {
 	{
 		welcomePanel = new JPanel();
 		welcomePanel.setLayout(new FlowLayout());
-		//ImageIcon image = new ImageIcon("getRidLogo.png");
-        //JLabel imageLabel = new JLabel(image); 
-		//imageLabel.setBounds(5, 5, 5, 5);
-		//imageLabel.setVisible(true);
-        //welcomePanel.add(imageLabel);
+		ImageIcon image = new ImageIcon("getRidLogo.png");
+        JLabel imageLabel = new JLabel(image); 
+		imageLabel.setBounds(5, 5, 5, 5);
+		imageLabel.setVisible(true);
+        welcomePanel.add(imageLabel);
         
 		welcomePanel.add(welcomeField);
 		welcomePanel.add(browseButton);
