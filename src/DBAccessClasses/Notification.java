@@ -1,22 +1,12 @@
 package DBAccessClasses;
-/**
- * this class will handle notifying the seller and buyer via email after a transaction has been made.
- * there will be one method that sends an email to the seller and one that sends an email to the buyer
- * the methods should take the email of their intended recipient and the book being bought if to the seller
- * and a list of the order if to the buyer. 
- * @MiYoen
- */
+
 import java.util.Properties;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
- 
- 
+
 public class Notification {
  
 	static Properties mailServerProperties;

@@ -16,6 +16,7 @@ import java.util.*;
  * @author gchar158
  *
  */
+
 	public class UserDBAccess {
 
 	    private static Connection conn;
@@ -35,29 +36,48 @@ import java.util.*;
 	        stmt.close();
 	    }
 	    
-		    public void addInfo(String firstName, String lastName, String address, String billingAddress, 
-		    		String creditNum, String email, int cvc) throws SQLException
+		    public void addInfo
+		    
+		    		(	String firstName, 
+		    			String lastName, 
+		    			String email, 
+		    			String address, 
+		    			String username,
+		    			String password, 
+		    			String cardNumber, 
+		    			String expirationDate,
+		    			String cvcCodeField,	
+		    			String NameOnCard, 	
+		    		 	String billingAddress, 	    		 	
+		    		 	String securityQuest,  
+		    		 	String securityQuestAns)  throws SQLException
+		    		
+		    		
 		    {
-		        conn=DBConnection.getConnection();
+		         
+		        
+		    	conn=DBConnection.getConnection();
+		        
 		        
 		        PreparedStatement stmt= conn.prepareStatement
-		        ("insert INTO user_accounts values ('001', ?, ?, ?, ?, ?, ?, ?, '1221', 788, '', '', '', '', null, 'bb1b')");
+		        		
+		        ("insert INTO user_accounts values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, null, ?)");
 		        
-		        stmt.setString(1, firstName);
-		        stmt.setString(2, lastName);
-		        stmt.setString(3, address);
-		        stmt.setString(4, email);
-		        stmt.setString(5, billingAddress);;
-		        stmt.setString(6,creditNum);
-	
-		        stmt.setString(7, lastName);
-		  //      stmt.setString(6, expiration);
-		   //     stmt.setInt(8, cvc);
-		 //       stmt.setString(6, email);
-		 //       stmt.setString(6, email);
-		 //       stmt.setString(6, email);
-		        stmt.execute();
-		        
+		        stmt.setString	(1, firstName);
+		        stmt.setString	(2, lastName);
+		        stmt.setString	(3, address);		        
+		        stmt.setString	(4, email);
+		        stmt.setString	(5, billingAddress);
+		        stmt.setString	(6, cardNumber);
+		        stmt.setString	(7, NameOnCard);
+		        stmt.setString	(8, expirationDate);
+			    stmt.setString	(9, cvcCodeField);	 
+			    stmt.setString	(10,password);	
+		        stmt.setString	(11, securityQuest);
+		        stmt.setString	(12, securityQuestAns);
+		        stmt.setString	(13, username);
+        
+		        stmt.execute();		        
 		        stmt.close();
 		
 	    }

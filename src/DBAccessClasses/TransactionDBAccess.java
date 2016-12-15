@@ -13,6 +13,8 @@ import java.util.*;
 import java.sql.*;
 //import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+
+import userInt.Variables;
 //import com.mysql.jdbc.PreparedStatement;
 
 /**
@@ -48,21 +50,24 @@ public class TransactionDBAccess {
 	private Connection conn;
 	int transactionNum;
 	String Seller_Name; 
-	int Seller_Acc_Num; 
+	String Seller_Acc_Num; 
 	String Buyer_Name;
-	int Buyer_Acc_Num;
+	String Buyer_Acc_Num;
 	String Buyer_Address; 
 	int Transaction_Date; 
 	String Book_Title;
 	String Author_Firstname; 
 	String Author_Lastname;
-	int ISBN;
+	String ISBN;
 	Double Price; 
-	int Credit_Card_Number; 
+	String Credit_Card_Number; 
 	Double Percent_Received; 
 	Double total;
 	String received; 
 	String shipped;
+
+	//int transactionNum;
+	
 	
 	/**
 	 * The following method is in charge of creating a transaction once a user makes a purchase. 
@@ -71,9 +76,9 @@ public class TransactionDBAccess {
 	 */
 	
 	//The following method is in charge of creating a transaction once a user makes a purchase. 
-	public void createTransaction(int transactionNum, String Seller_Name, int Seller_Acc_Num, String Buyer_Name, int Buyer_Acc_Num,
+	public void createTransaction(String transactionNum, String Seller_Name, String Seller_Acc_Num, String Buyer_Name, String Buyer_Acc_Num,
 			String Buyer_Address, int Transaction_Date, String Book_Title, String Author_Firstname, 
-			String Author_Lastname, int ISBN, Double Price, int Credit_Card_Number, Double Percent_Received, 
+			String Author_Lastname, String ISBN, Double Price, String Credit_Card_Number, Double Percent_Received, 
 			Double total, String received, String shipped ) throws SQLException 
 		
 	{
@@ -86,19 +91,19 @@ public class TransactionDBAccess {
 		String transactionD = new SimpleDateFormat("MM.dd.yyyy.HH.mm.ss").format(new Timestamp(Transaction_Date));
 		
 		
-		stmt.setInt(1,transactionNum);  
+		stmt.setString(1,transactionNum);  
 		stmt.setString(2,Seller_Name); 
-		stmt.setInt(3,Seller_Acc_Num);
+		stmt.setString(3,Seller_Acc_Num);
 		stmt.setString(4,Buyer_Name);
-		stmt.setInt(5, Buyer_Acc_Num);
+		stmt.setString(5, Buyer_Acc_Num);
 		stmt.setString(6, Buyer_Address);
 		stmt.setString(7, transactionD);
 		stmt.setString(8,Book_Title );
 		stmt.setString(9, Author_Firstname);
 		stmt.setString(10, Author_Lastname);
-		stmt.setInt(11, ISBN);
+		stmt.setString(11, ISBN);
 		stmt.setDouble(12,Price);
-		stmt.setInt(13, Credit_Card_Number);
+		stmt.setString(13, Credit_Card_Number);
 		stmt.setDouble(14, Percent_Received);
 		stmt.setDouble(15, total);
 		stmt.setString(16,received);
@@ -106,6 +111,8 @@ public class TransactionDBAccess {
 		stmt.executeUpdate(); 
 		conn.close();
 	}
+	
+	
 	
 
 	/**
@@ -116,15 +123,22 @@ public class TransactionDBAccess {
 	public void addTransaction()
 	{
 		try {
-			this.createTransaction(transactionNum, Seller_Name, Seller_Acc_Num, Buyer_Name, Buyer_Acc_Num,
-				Buyer_Address,Transaction_Date, Book_Title, Author_Firstname, 
-				Author_Lastname, ISBN, Price,Credit_Card_Number, Percent_Received,total, received, shipped);
+			this.createTransaction(Variables.transactionNum,  Variables.Seller_Name,  
+					Variables.Seller_Acc_Num,  Variables.Buyer_Name,  Variables.Buyer_Acc_Num,
+					Variables.Buyer_Address, 
+					 Variables.Transaction_Date,  Variables.Book_Title,  Variables.Author_Firstname, 
+					 Variables.Author_Lastname,  Variables.ISBN,  Variables.Price,  
+					 Variables.Credit_Card_Number,  Variables.Percent_Received, 
+					 Variables.total,  Variables.received,  Variables.shipped);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		
 	}
+	
+	
 	
 	/**
 	 * The following method is in charge of retrieving the transaction. That will then be sent to the user asa  receipt once they
@@ -136,7 +150,7 @@ public class TransactionDBAccess {
 															//this method goes in the user notification method 
 		
 		conn=DBConnection.getConnection();
-		PreparedStatement stmt=conn.prepareStatement("select * from emp");  
+		PreparedStatement stmt=conn.prepareStatement("select * from transaction");  
 		ResultSet rs= stmt.executeQuery();
 		while(rs.next()){
 			System.out.println(rs.getInt(1)+"/n"+rs.getString(2)+"/n"+rs.getString(4)+"/n"+rs.getInt(5)+"/n"+rs.getString(6)+"/n"

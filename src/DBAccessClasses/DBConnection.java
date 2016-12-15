@@ -5,6 +5,7 @@ package DBAccessClasses;
  */
 import java.sql.*;
  
+
 public class DBConnection {
 	private static Connection conn; 
 
@@ -13,8 +14,10 @@ public class DBConnection {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			System.out.println("good");
 		} catch (InstantiationException e) {
+			// 
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
+			// 
 			e.printStackTrace();
 		}
 		catch (ClassNotFoundException ex) {
@@ -38,9 +41,10 @@ public class DBConnection {
 			}
 	}
 	
-	//May be UNUSED
 	public static  boolean checkLogin(String uname,String pwd) throws ClassNotFoundException, SQLException
 	{
+		//conn = DBConnection.getConnection();
+				
 		PreparedStatement pst = conn.prepareStatement	 ("SELECT * FROM user_accounts WHERE username=? AND Password=?");;
 	    ResultSet rs;
 	    
