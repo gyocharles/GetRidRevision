@@ -22,7 +22,8 @@ public class CartFrame extends JFrame {
 	private JButton addAnotherBookButton;
 	private JButton checkoutButton;
 	private JButton menu;
-	
+	private JButton clearButton;
+
 	//copy arraylist in a method then display the copy
 	//add arraylist here and have method heree to take book param and add to it
 	
@@ -87,7 +88,8 @@ private void createTextArea()
 		addAnotherBookButton = new JButton("Add Another Book");
 		checkoutButton = new JButton("Checkout and Pay");
 		menu = new JButton ("Back to Main Menu");
-		
+		clearButton = new JButton ("Clear Cart");
+
 		 ActionListener AddAnotherBookListener = new ActionListener() {
  	    	public void actionPerformed(ActionEvent e) {
  	 	    	dispose();
@@ -97,7 +99,6 @@ private void createTextArea()
  	 	   		frame.setResizable(false);
  	 	   		frame.setVisible(true);
  	    	}
-
 			
  	    };
  	    
@@ -126,6 +127,21 @@ private void createTextArea()
 	    	}
 	    };
 	    
+	    ActionListener ClearCartListener = new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				Variables.cart.clear(); // clears the arraylist "cart" and sends user back to the BrowseFrame
+				JOptionPane.showMessageDialog(null, "Your cart has been cleared.");
+				dispose();
+				JFrame frame = new BrowseFrame();
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				frame.setTitle("GetRid - Search");
+				frame.setResizable(false);
+				frame.setVisible(true);
+			}
+		};
+		
 	    ActionListener MenuListener = new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		if(Variables.isLoggedIn) 
@@ -149,6 +165,7 @@ private void createTextArea()
 	    
 	    menu.addActionListener(MenuListener);
 	    addAnotherBookButton.addActionListener(AddAnotherBookListener);
+		clearButton.addActionListener(ClearCartListener);
 	    checkoutButton.addActionListener(CheckoutAndPayListener);
 	}
 	
@@ -161,6 +178,7 @@ private void createTextArea()
 		cartPanel.add(scrollPane);
 		
 		cartPanel.add(addAnotherBookButton);
+		cartPanel.add(clearButton);
 		cartPanel.add(checkoutButton);
 		cartPanel.add(menu, new FlowLayout().LEFT);
 		
