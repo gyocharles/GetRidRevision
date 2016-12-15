@@ -93,9 +93,7 @@ public class MenuFrame extends JFrame {
 	private void createPanel()
 	{
 		menuPanel = new JPanel();
-		//menuPanel.setLayout(new BoxLayout( new ));
 		menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
-		
 		menuPanel.add(browseButton);
 		menuPanel.add(ridButton);
 		menuPanel.add(cartButton);

@@ -2,66 +2,65 @@ package ObjectClasses;
 public class Book {
 	
 private String BookTitle;
-private String AuthorLastname;//maybe to separate first and last name for sake of prepared statement
+private String AuthorLastname;
 private String AuthorFirstname;
 private String ISBN;
 private double Price;
 private String Condition;
-private int EntryNumber;//added for the sake of finding books by entry number
-//private String edition;//might not be used or added in later
-private int SellerAccNum;//added for the sake of finding posts by seller account number
-private String SellerName;//added for the seeing the seller's name when book info is displayed
+private int EntryNumber;
+private int SellerAccNum;
+private String SellerName;
 
 public Book(int EntryNumber, int SellerAccNum, String SellerName, String BookTitle, String AuthorFirstname, String AuthorLastname, String iSBN2, double Price, String Condition)
 {
-	this.EntryNumber=EntryNumber;//added
-	this.SellerAccNum=SellerAccNum;//added
-	this.SellerName=SellerName;//added
+	this.EntryNumber=EntryNumber;
+	this.SellerAccNum=SellerAccNum;
+	this.SellerName=SellerName;
 	this.BookTitle=BookTitle;
-	this.AuthorFirstname=AuthorFirstname;//added
-	this.AuthorLastname=AuthorLastname;//added
+	this.AuthorFirstname=AuthorFirstname;
+	this.AuthorLastname=AuthorLastname;
 	this.ISBN=iSBN2;
 	this.Price=Price;
 	this.Condition=Condition;
 }
 
-public String getSellerName() {//added
+public String getSellerName() {
 	return SellerName;
 }
 
-public void setSellerName(String sellerName) {//added
+public void setSellerName(String sellerName) {
 	SellerName = sellerName;
 }
 
-public void setEntryNumber(int EntryNumber){//added
+public void setEntryNumber(int EntryNumber){
 	this.EntryNumber=EntryNumber;
 }
 
-public String getAuthorLastname() {//added
+public String getAuthorLastname() {
 	return AuthorLastname;
 }
 
-public void setAuthorLastname(String authorLastname) {//added
+public void setAuthorLastname(String authorLastname) {
 	AuthorLastname = authorLastname;
 }
 
-public String getAuthorFirstname() {//added
+public String getAuthorFirstname() {
 	return AuthorFirstname;
 }
 
-public void setAuthorFirstname(String authorFirstname) {//added
+public void setAuthorFirstname(String authorFirstname) {
 	AuthorFirstname = authorFirstname;
 }
 
-public int getEntryNumber(){//added
+public int getEntryNumber(){
 	return EntryNumber;
 }
 
-public void setSellerAccNum(int SellerAccNum){//added
+public void setSellerAccNum(int SellerAccNum){
 	this.SellerAccNum=SellerAccNum;
 }
 
-public int getSellerAccNum(){//added
+public int getSellerAccNum(){
 	return SellerAccNum;
 }
 
@@ -95,7 +94,7 @@ public String getCondition() {
 	return Condition;
 }
 
-public String BooktoString(){//added to format the output of book objects
+public String BooktoString(){
 	String format="Entry Number: "+EntryNumber+" \nTitle:\t"+BookTitle+
 			"\nAuthor:\t"+AuthorFirstname+" "+AuthorLastname+
 			"\nCondition:\t"+Condition+

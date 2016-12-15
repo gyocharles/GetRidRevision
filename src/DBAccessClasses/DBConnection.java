@@ -43,20 +43,17 @@ public class DBConnection {
 	
 	public static  boolean checkLogin(String uname,String pwd) throws ClassNotFoundException, SQLException
 	{
-		//conn = DBConnection.getConnection();
 				
 		PreparedStatement pst = conn.prepareStatement	 ("SELECT * FROM user_accounts WHERE username=? AND Password=?");;
 	    ResultSet rs;
 	    
 		try 
 		{
-			pst.setString(1, uname); //this replaces the 1st  "?" in the query for username
-			pst.setString(2, pwd);    //this replaces the 2st  "?" in the query for password
-			//executes the prepared statement
+			pst.setString(1, uname);
+			pst.setString(2, pwd);    
 			rs=pst.executeQuery();
 			if(rs.next())
 			{
-				//TRUE iff the query founds any corresponding data
 				return true;
 			}
 			else
@@ -67,7 +64,6 @@ public class DBConnection {
 		
 		catch (Exception e) 
 		{
-			// TODO Auto-generated catch block
 			System.out.println("error while validating"+e);
 			return false;
 		}

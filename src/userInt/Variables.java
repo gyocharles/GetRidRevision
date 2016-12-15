@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import ObjectClasses.Book;
 
-/*
+/**
  * this class holds all the global variables that checks to see if the user is logged in or not
  *
  */
@@ -37,6 +37,6 @@ public class Variables {
 	
 	public static ArrayList<Book> cart = new ArrayList<Book> ();
 	
-	public static String cartInfo; //what is to be sent in the body of notification email
+	public static String cartInfo; 
 	
 }

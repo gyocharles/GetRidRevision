@@ -100,7 +100,6 @@ public class AccountManagementFrame extends JFrame {
 			}
 		};
 
-		//Call to UserDBAccess
 		ActionListener UpdateAccountListener = new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent ae) 

@@ -4,18 +4,14 @@ package DBAccessClasses;
  */
 import java.sql.Connection;
 import java.sql.Date;
-//import java.sql.Date;
-//import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
 import java.sql.*;
-//import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
 import userInt.Variables;
-//import com.mysql.jdbc.PreparedStatement;
 
 /**
  * this class will handle the interaction between the program and the transaction table
@@ -38,10 +34,9 @@ import userInt.Variables;
  * @param Percent_Received This represents the percent that we take from every transaction
  * @param total This represents the total amount of a transaction
  * 
- * @author acord942
+ * 
  *
  */
-
 
 
 public class TransactionDBAccess {
@@ -66,8 +61,6 @@ public class TransactionDBAccess {
 	String received; 
 	String shipped;
 
-	//int transactionNum;
-	
 	
 	/**
 	 * The following method is in charge of creating a transaction once a user makes a purchase. 
@@ -75,7 +68,6 @@ public class TransactionDBAccess {
 	 * @throws SQLException
 	 */
 	
-	//The following method is in charge of creating a transaction once a user makes a purchase. 
 	public void createTransaction(String transactionNum, String Seller_Name, String Seller_Acc_Num, String Buyer_Name, String Buyer_Acc_Num,
 			String Buyer_Address, int Transaction_Date, String Book_Title, String Author_Firstname, 
 			String Author_Lastname, String ISBN, Double Price, String Credit_Card_Number, Double Percent_Received, 
@@ -84,13 +76,9 @@ public class TransactionDBAccess {
 	{
 		conn=DBConnection.getConnection();
 		
-		PreparedStatement stmt=conn.prepareStatement("INSERT into Product values(?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?, ?, ?, ?)");  
-		
-		//transactionNum=count.incremenetandGet();
-		
+		PreparedStatement stmt=conn.prepareStatement("INSERT into Product values(?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?, ?, ?, ?)");  	
 		String transactionD = new SimpleDateFormat("MM.dd.yyyy.HH.mm.ss").format(new Timestamp(Transaction_Date));
-		
-		
+				
 		stmt.setString(1,transactionNum);  
 		stmt.setString(2,Seller_Name); 
 		stmt.setString(3,Seller_Acc_Num);
@@ -131,7 +119,6 @@ public class TransactionDBAccess {
 					 Variables.Credit_Card_Number,  Variables.Percent_Received, 
 					 Variables.total,  Variables.received,  Variables.shipped);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -145,9 +132,7 @@ public class TransactionDBAccess {
 	 * make a transaction. This method will get used in the user notification method. 
 	 * @throws SQLException
 	 */
-	public void retrieveTransaction( ) throws SQLException{ //This method retrieves the transaction and can be 
-															//sent to the user as a receipt once they make a transaction. 
-															//this method goes in the user notification method 
+	public void retrieveTransaction( ) throws SQLException{ 
 		
 		conn=DBConnection.getConnection();
 		PreparedStatement stmt=conn.prepareStatement("select * from transaction");  

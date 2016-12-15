@@ -37,7 +37,7 @@ public class CheckoutFrame extends JFrame {
 	private JButton checkoutButton;
 	private JButton menuButton;
 
-	TransactionDBAccess t1= new TransactionDBAccess();//added
+	TransactionDBAccess t1= new TransactionDBAccess();
 
 
 	/**
@@ -55,21 +55,16 @@ public class CheckoutFrame extends JFrame {
 	private void createTextArea() 
 	{
 		cartField = new JTextArea(20, 30);
-		//searchResultField.setText();
 		cartField.setEditable(false);
-
 		cartField.setText("");
-
-		//cartField.setText(cart.get(0)); 
 		double sum=0.0;
-        //cartField.setText(cart.get(0)); //for Alexanders part 
         for (Book books : Variables.cart) 
         {
              sum+= books.getPrice();
         }
         String numberAsStriing= String.valueOf(sum);
 		for (Book books : Variables.cart) 
-		{//goes through arraylist to prints it to the textarea
+		{
 			cartField.append(books.BooktoString());
 			cartField.append("\n");
 	        cartField.append("TOTAL:\t"+numberAsStriing);
@@ -84,7 +79,7 @@ public class CheckoutFrame extends JFrame {
 
 		ActionListener CheckoutAndPayListener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// check if IsLoggedIn = true, then add up all prices of books in cart and move to paymentFrame
+			
 			if(Variables.isLoggedIn)
 			{
 
@@ -96,13 +91,10 @@ public class CheckoutFrame extends JFrame {
 				double Price;
 				String Condition;
 				int EntryNumber;
-				//int SellerAccNum;
-				//String SellerName;
-
-				//this loop will get all the info of each book and pass it to createTransaction
+			
 				for (Book books : Variables.cart) 
 				{
-					sum+=books.getPrice();//can go in seperate loop to just get the total
+					sum+=books.getPrice();
 					BookTitle=books.getBookTitle();
 					AuthorLastname=books.getAuthorLastname();
 					AuthorFirstname=books.getAuthorFirstname();
@@ -120,11 +112,8 @@ public class CheckoutFrame extends JFrame {
 				try {
 					jv.generateAndSendEmail(userEmail, Variables.cartInfo);
 				} catch (MessagingException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}//ask for user email
-				//t1.addTransaction();
-				//some of the paramters must be removed or a new method must be made to just get the book info
+				}
 				try {
 					t1.createTransaction(Variables.transactionNum,  Variables.Seller_Name,  
 							Variables.Seller_Acc_Num,  Variables.Buyer_Name,  Variables.Buyer_Acc_Num,
@@ -134,10 +123,8 @@ public class CheckoutFrame extends JFrame {
 							Variables.Credit_Card_Number,  Variables.Percent_Received, 
 							Variables.total,  Variables.received,  Variables.shipped);
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				//t1.retrieveTransaction();          //The code that's commented out serves as a "receipt" for when a user checks out.
 
 				dispose();				
 				JFrame frame = new MenuFrame();
@@ -148,7 +135,6 @@ public class CheckoutFrame extends JFrame {
 			}
     		else
     		{
-	 	   		//check if IsLoggedIn = false, then go to LogInFrame
     			dispose();
  	    		JFrame frame = new LogInFrame();
  	   			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -24,12 +24,10 @@ public class CartFrame extends JFrame {
 	private JButton menu;
 	private JButton clearButton;
 
-	//copy arraylist in a method then display the copy
-	//add arraylist here and have method heree to take book param and add to it
+
 	
-	BookDBAccess bookdba = new BookDBAccess();//create object to get access 
+	BookDBAccess bookdba = new BookDBAccess();
 	
-	// Variables.cart = bookdba.getListofBooks();//create and fill arraylist
 	
 	public CartFrame() 
 	{
@@ -40,35 +38,20 @@ public class CartFrame extends JFrame {
 		setSize(FRAME_WIDTH, FRAME_HEIGHT);
 	}
     
-	/*private void createTextArea() 
-	{
-		cartField = new JTextArea(20, 30);
-		//searchResultField.setText();
-		cartField.setEditable(false);
-		//cartField.setText(cart.get(0)); //for Alexanders part 
-		
-		for (Book books : cart) {//goes through arraylist to prints it to the textarea
-		    cartField.append(books.toString());
-		    cartField.append("\n");
-		}  
-	}
-	*/
 
-private void createTextArea() 
+	private void createTextArea() 
     {
         cartField = new JTextArea(20, 30);
-        //searchResultField.setText();
         cartField.setEditable(false);
         cartField.setText("");
         double sum=0.0;
-        //cartField.setText(cart.get(0)); //for Alexanders part 
         for (Book books : Variables.cart) 
         {
              sum+= books.getPrice();
         }
         
-          String numberAsStriing= String.valueOf(sum);//sum2 Double.toString(double);
-        for (Book books : Variables.cart) {//goes through arraylist to prints it to the textarea
+          String numberAsStriing= String.valueOf(sum);
+        for (Book books : Variables.cart) {
             cartField.append(books.BooktoString());
             cartField.append("\n");
            cartField.append("TOTAL:\t"+numberAsStriing);
@@ -77,10 +60,6 @@ private void createTextArea()
         Variables.cartInfo = cartField.getText();
     }
 
-//	BookDBAccess bookdba = new BookDBAccess();//create object to get access 
-//    ArrayList<Book> cart = bookdba.getListofBooks();//create and fill arraylist
-	
-	
 	
 	
 	private void createButtons()
@@ -104,7 +83,6 @@ private void createTextArea()
  	    
  	   ActionListener CheckoutAndPayListener = new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		// check if IsLoggedIn = true, then add up all prices of books in cart and move to CheckoutFrame
 	    		if(Variables.isLoggedIn) 
 	    		{
 	    			 dispose();
@@ -116,7 +94,6 @@ private void createTextArea()
 	    		}
 	    		else
 	    		{
- 	 	   		//check if IsLoggedIn = false, then go to LogInFrame
 	     	    dispose();
 	 	    	JFrame frame = new LogInFrame();
 	 	   		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -131,7 +108,7 @@ private void createTextArea()
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				Variables.cart.clear(); // clears the arraylist "cart" and sends user back to the BrowseFrame
+				Variables.cart.clear(); 
 				JOptionPane.showMessageDialog(null, "Your cart has been cleared.");
 				dispose();
 				JFrame frame = new BrowseFrame();

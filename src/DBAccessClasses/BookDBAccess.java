@@ -13,7 +13,7 @@ import ObjectClasses.Book;
  * 
  **/
 
-public class BookDBAccess {//may remove public access specifier
+public class BookDBAccess {
 
 	private static Connection conn;
 	
@@ -41,7 +41,7 @@ public class BookDBAccess {//may remove public access specifier
 		}
 		else
 			do {
-				//while there is data to be taken in, enter it in the correct variable and put it into a formatted string.
+				
 				
 				int entrynum=rs.getInt("Entry_number");
 				String title=rs.getString("Booktitle");
@@ -68,13 +68,11 @@ public class BookDBAccess {//may remove public access specifier
 				
 		stmt.close();
 		
-	//return the formated string
 		return searchResult;
 	}
+		
 	
-	
-	
-	/**
+	/**          
 	 * This method retrieves all the info of ALL the books in the product table. It calls createResultList to create 
 	 * an ArrayList of book objects then returns it. It will be called when the "Browse All" button is hit in the BrowseFrame class.
 	 * will either be modified for finding the books of a specific seller or used as a base for a separate similar method
@@ -82,7 +80,7 @@ public class BookDBAccess {//may remove public access specifier
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-//	public ArrayList<Book> searchAllBooks() throws ClassNotFoundException, SQLException
+
 	public String searchAllBooks() throws ClassNotFoundException, SQLException
 	{
 		ArrayList<Book>books;
@@ -92,20 +90,16 @@ public class BookDBAccess {//may remove public access specifier
 		PreparedStatement stmt= conn.prepareStatement("SELECT * FROM product");
 		ResultSet rs= stmt.executeQuery();
 		searchResult = "";
-		//books = createResultList(rs);
 		
 		if(!rs.next()){
 			searchResult = "No Book found, please try again.";
 		}
 		else
 			do {
-				//while there is data to be taken in, enter it in the correct variable and put it into a formatted string.
 				
 				int entrynum=rs.getInt("Entry_number");
 				String title=rs.getString("Booktitle");
-				
 				String ISBN=rs.getString("ISBN");
-				
 				String condition=rs.getString("Condition");
 				String authorFirst=rs.getString("Author_Firstname");
 				String authorLast=rs.getString("Author_Lastname");
@@ -125,11 +119,6 @@ public class BookDBAccess {//may remove public access specifier
 			} while(rs.next());
 				
 		stmt.close();
-		
-		/*for(int i=0; i<books.size(); i++){//prints out the list of results in formatted string
-			books.get(i).BooktoString();
-		}	*/
-		
 		return searchResult;
 	}
 
@@ -151,7 +140,7 @@ public class BookDBAccess {//may remove public access specifier
 		return books;
 	}
 	
-	/*
+	/**
 	 * This method assists ArrayList<Book>allBooks in creating the ArrayList of books by creating the book objects
 	 * @param rs the result set
 	 * @return book object
@@ -197,11 +186,8 @@ public class BookDBAccess {//may remove public access specifier
 		
 		else
 			do {
-				//while there is data to be taken in, enter it in the correct variable and put it into a formatted string.
-				
 				int entrynum=rs.getInt("Entry_number");
 				String title = rs.getString("Booktitle");
-				
 				String ISBN 		= rs.getString("ISBN");				
 				String condition 	= rs.getString("Condition");
 				String authorFirst 	= rs.getString("Author_Firstname");
@@ -221,7 +207,7 @@ public class BookDBAccess {//may remove public access specifier
 			} while(rs.next());
 
 		stmt.close();
-		return searchResult;//return the formated string
+		return searchResult;
 	}
 	
 	/**
@@ -238,8 +224,7 @@ public class BookDBAccess {//may remove public access specifier
 		String searchResult="";
 		PreparedStatement stmt =null;
 		
-		// checking for optional first name search.
-		
+				
 		if ( (first.trim()).isEmpty() )
 		{
 			
@@ -263,7 +248,6 @@ public class BookDBAccess {//may remove public access specifier
 		else	
 		
 		do {
-			//while there is data to be taken in, enter it in the correct variable and put it into a formatted string.
 			
 			int entrynum=rs.getInt("Entry_number");
 			
@@ -288,11 +272,11 @@ public class BookDBAccess {//may remove public access specifier
 		} while(rs.next());
 				
 		stmt.close();
-		return searchResult;//return the formated string
+		return searchResult;
 	}
 	
 	
-	 /*
+	 /**
 	  * This method will search for a book in the database by seller's account number 
 	  * when someone is trying to find their book, they can use this method
 	  * 
@@ -317,7 +301,7 @@ public class BookDBAccess {//may remove public access specifier
 		}
 		
 		else
-			while(rs.next()){//while there is data to be taken in, enter it in the correct variable and put it into a formatted string.
+			while(rs.next()){
 				int entrynum=rs.getInt("Entry_number");
 				String title	= rs.getString("Booktitle");
 				String ISBN		= rs.getString("ISBN");
@@ -339,7 +323,7 @@ public class BookDBAccess {//may remove public access specifier
 			}
 		
 		stmt.close();
-		return searchResult;//return the formated string
+		return searchResult;
 	}
 	
 	/**
@@ -361,7 +345,7 @@ public class BookDBAccess {//may remove public access specifier
 			searchResult="No Book found, please try again";
 		}
 		else
-			while(rs.next()){//while there is data to be taken in, enter it in the correct variable and put it into a formatted string.
+			while(rs.next()){
 				int entrynum	=	rs.getInt("Entry_number");
 				String title	=	rs.getString("Booktitle");
 				String ISBN		=	rs.getString("ISBN");
@@ -382,7 +366,7 @@ public class BookDBAccess {//may remove public access specifier
 						"\nPrice:\t $" + price +"\n\n";			}
 		
 		stmt.close();
-		return searchResult;//return the formated string
+		return searchResult;
 	}
 
 	/**
@@ -398,8 +382,7 @@ public class BookDBAccess {//may remove public access specifier
 	public Book getBookByEntryNum (int id) throws ClassNotFoundException, SQLException{//added to find book by entry number so it can be added to the cart  
 		
 		conn=DBConnection.getConnection();
-		//String searchResult=null;
-		
+				
 		Book book = null;
 		PreparedStatement stmt= conn.prepareStatement("SELECT * FROM product WHERE Entry_number=?");
 		
@@ -416,7 +399,7 @@ public class BookDBAccess {//may remove public access specifier
 		}
 		else
 
-			{//while there is data to be taken in, enter it in the correct variable and put it into a formatted string.
+			{
 				int entrynum		= rs.getInt("Entry_number");
 				int sellAccnum		= rs.getInt("SellerAccountNum");
 				String title		= rs.getString("Booktitle");
@@ -436,7 +419,6 @@ public class BookDBAccess {//may remove public access specifier
 		stmt.close();
 		return book;
 		
-		  //must add ____ cart.add(book);//add the found 
 	}
 	/**
 	 * This method will be called when a user is adding a book to the database. All the parameters can be passed 
@@ -462,7 +444,6 @@ public class BookDBAccess {//may remove public access specifier
 	{
 		conn=DBConnection.getConnection();
 		PreparedStatement stmt= conn.prepareStatement("INSERT into Product values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
-		//stmt.setInt(1, EntryNumber); this field of the table is auto incremented
 		
 		stmt.setInt(2, SellerAccNum);
 		stmt.setString(3, SellerName);
@@ -472,6 +453,7 @@ public class BookDBAccess {//may remove public access specifier
 		stmt.setString(7, isbn);
 		stmt.setDouble(8, Price);
 		stmt.setString(9, Condition);
+		stmt.executeUpdate();
 		
 		stmt.close();
 	}
@@ -498,11 +480,6 @@ public class BookDBAccess {//may remove public access specifier
 	}
 
 
-/*
-	public ArrayList<Book> getListofBooks() {
-		return null;
-        //return cart;
-	}
-*/
+
 	
 }

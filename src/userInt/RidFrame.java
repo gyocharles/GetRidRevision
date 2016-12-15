@@ -49,12 +49,12 @@ public class RidFrame extends JFrame {
 	
 	
 	
-	private JLabel SellerNameLabel;//added
-	private JTextField SellerNameField;//added
+	private JLabel SellerNameLabel;
+	private JTextField SellerNameField;
 	
 
 	
-	BookDBAccess bookdba= new BookDBAccess();//added to give access to the BookDBAccess class
+	BookDBAccess bookdba= new BookDBAccess();
 	public RidFrame() 
 	{
 		createTextField();
@@ -66,8 +66,8 @@ public class RidFrame extends JFrame {
 	private void createTextField()
 	      {
 			final int FIELD_WIDTH = 20;
-			 SellerNameLabel=new JLabel("  Seller:  ");//added
-			 SellerNameField=new JTextField(FIELD_WIDTH);//added
+			 SellerNameLabel=new JLabel("  Seller:  ");
+			 SellerNameField=new JTextField(FIELD_WIDTH);
 	         bookTitleLabel = new JLabel("   Book Title: ");	   
 	         bookTitleField = new JTextField(FIELD_WIDTH);
 	         isbnLabel = new JLabel("   ISBN (13): ");	   
@@ -108,9 +108,7 @@ public class RidFrame extends JFrame {
  	   {
 	    	public void actionPerformed(ActionEvent ae) 
 	    	{
-	    		//TODO send to backend the info in the textfields
-	    		//addBook() called here after the info is taken into variables and passed
-	    		
+	    			    		
 	    		String isbn;
 				int sellerAccnum;
 	    		String title, authorFirstname, authorLastname, condition, sellerName;
@@ -127,11 +125,9 @@ public class RidFrame extends JFrame {
 	    		try {
 					bookdba.addBook(sellerAccnum, sellerName, title, authorFirstname, authorLastname, isbn, price, condition);
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 	    		
-	    		//goes back to main menu after posting book
 	    		dispose();
 	    		JOptionPane.showMessageDialog(null, "Your book has been posted.");
 	    		JFrame frame = new MenuFrame();

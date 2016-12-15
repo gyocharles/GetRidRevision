@@ -51,23 +51,18 @@ public class LogInFrame extends JFrame
 		 {
 			public void actionPerformed(ActionEvent ae) 
 			{
-				//checks if the button clicked
 				
 				if(ae.getSource()==loginButton)
 				{
 					char[] temp_pwd=passwordField.getPassword();
 					String pwd=null;
 					pwd=String.copyValueOf(temp_pwd);
-					// System.out.println("Username,Pwd:"+usernameField.getText()+","+pwd);
-
-					//The entered user name and password are sent via "checkLogin()" which return boolean
+					
 					try {
 						if(DBConnection.checkLogin (usernameField.getText(), pwd))
 						{
-							//a pop-up box
 						JOptionPane.showMessageDialog(null, "You have logged in successfully","Success",
 						JOptionPane.INFORMATION_MESSAGE);
-						//if no problems with login
 						Variables.isLoggedIn = true;
 						Variables.userName = usernameField.getText();
 						dispose();
@@ -80,18 +75,14 @@ public class LogInFrame extends JFrame
 						}
 						else
 						{
-							//a pop-up box
 							JOptionPane.showMessageDialog(null, "Login failed!","Failed!!",
 									JOptionPane.ERROR_MESSAGE);
 						}
 					} catch (HeadlessException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (ClassNotFoundException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}	
@@ -111,7 +102,6 @@ public class LogInFrame extends JFrame
  	 	   		frame.setResizable(false);
  	 	   		frame.setVisible(true);
 	    	
-	    		//checks if the button clicked
 				if(ae.getSource() == signupButton)
 				{
 					char[] temp_pwd=passwordField.getPassword();
@@ -119,27 +109,20 @@ public class LogInFrame extends JFrame
 					pwd=String.copyValueOf(temp_pwd);
 					System.out.println("Username,Pwd:"+usernameField.getText()+","+pwd);
 
-					//The entered username and password are sent via "checkLogin()" which return boolean
 					try {
 						if(DBConnection.checkLogin(usernameField.getText(), pwd))
 						{
-							//a pop-up box
-					//	JOptionPane.showMessageDialog(null, "You have signed up successfully","Success",
-					//	JOptionPane.INFORMATION_MESSAGE);
+							
 						}
 						else
 						{
-						//	JOptionPane.showMessageDialog(null, "Signup failed!","Failed!!",
-						//			JOptionPane.ERROR_MESSAGE);
+				
 						}
 					} catch (HeadlessException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (ClassNotFoundException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}	

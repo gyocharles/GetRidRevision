@@ -18,7 +18,7 @@ public class Notification {
 	
 	public static void generateAndSendEmail(String userEmail, String cartInfo) throws AddressException, MessagingException { //pass through the user's email that he/she types in
  
-		// Step1
+
 		System.out.println("\n 1st ===> setup Mail Server Properties..");
 		mailServerProperties = System.getProperties();
 		mailServerProperties.put("mail.smtp.port", "587");
@@ -26,7 +26,6 @@ public class Notification {
 		mailServerProperties.put("mail.smtp.starttls.enable", "true");
 		System.out.println("Mail Server Properties have been setup successfully..");
  
-		// Step2
 		 userE = userEmail;
 		 cartI = cartInfo;
 				
@@ -39,12 +38,10 @@ public class Notification {
 		generateMailMessage.setContent(emailBody, "text/html");
 		System.out.println("Mail Session has been created successfully..");
  
-		// Step3
 		System.out.println("\n\n 3rd ===> Get Session and Send mail");
 		Transport transport = getMailSession.getTransport("smtp");
  
-		// Enter your correct gmail UserID and Password
-		// if you have 2FA enabled then provide App Specific Password
+	
 		transport.connect("smtp.gmail.com", "getridinc@gmail.com", "GetRid16");
 		transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
 		transport.close();

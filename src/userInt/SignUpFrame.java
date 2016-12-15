@@ -144,7 +144,6 @@ public class SignUpFrame extends JFrame {
  	   {
 	    	public void actionPerformed(ActionEvent ae) 
 	    	{
-	    		//TODO send to backend User table the info in the textfields
 	    		
 	    		try {
 					userdba.addInfo 
@@ -164,12 +163,10 @@ public class SignUpFrame extends JFrame {
 							securityQuestAnsField.getText()		) ;
 					
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 		    		
 	    		dispose();
-	    	//	JOptionPane.showMessageDialog(null, "Your Account has been created. Please log in to continue.");
 	    		JFrame frame = new LogInFrame();
  	 	   		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
  	 	   		frame.setTitle("GetRid - Log In");
@@ -194,7 +191,6 @@ public class SignUpFrame extends JFrame {
 		
 		JPanel middlePanel = new JPanel();
 		middlePanel.setLayout(new BoxLayout(middlePanel, BoxLayout.Y_AXIS));
-	//	middlePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		
         middlePanel.add(firstNameLabel);
         middlePanel.add(firstNameField);
