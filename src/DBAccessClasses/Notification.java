@@ -15,10 +15,10 @@ public class Notification {
 	private static String userE;
 	private static String cartI;
 	
-	public Notification(String userEmail, String cartInfo)
+	public Notification()
 	{
-		 userE = userEmail;
-		 cartI = cartInfo;
+		 userE = "";
+		 cartI = "";
 	}
 	
 	public static void generateAndSendEmail(String userEmail, String cartInfo) throws AddressException, MessagingException { //pass through the user's email that he/she types in
