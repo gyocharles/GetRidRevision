@@ -139,6 +139,8 @@ public class CheckoutFrame extends JFrame {
 				}
 				//t1.retrieveTransaction();          //The code that's commented out serves as a "receipt" for when a user checks out.
 
+				Variables.cart.clear(); //clears the cart once this button is pressed!!
+				
 				dispose();				
 				JFrame frame = new MenuFrame();
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
