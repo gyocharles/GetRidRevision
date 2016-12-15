@@ -27,7 +27,6 @@ public class BrowseFrame extends JFrame {
 	private JLabel headLabel;
 	private JLabel lineLabel;
 	private JLabel lineLabel1;
-	private JLabel lineLabel2;
 	private JLabel isbnLabel;
 	private JLabel titleLabel;
 	private JLabel authorLabel;	
@@ -60,7 +59,6 @@ public class BrowseFrame extends JFrame {
 	private  JPanel cartPanel;
 	private  JPanel menuPanel;
 	private  JPanel linePanel1;
-	private  JPanel linePanel2;
 	private  JPanel linePanel;		 
 	private  JScrollPane scrollPane;
 
@@ -136,23 +134,18 @@ public class BrowseFrame extends JFrame {
 				String search;
 
 				try {
-
-					// search=Integer.parseInt(isbnField.getText());	    			
-
 					search = isbnField.getText();
 					String searchResult = bookdba.getBookByISBN(search);
 
 					// showing search results as a list of book records
-
 					searchResultField.setText(searchResult);
 
-				} catch (ClassNotFoundException e1) {	e1.printStackTrace();
-
-				} catch (SQLException e1) {
-					// 
-					e1.printStackTrace();
+				} 
+                catch (ClassNotFoundException e1) 
+            		{ e1.printStackTrace(); } 
+				catch (SQLException e1) 
+            		{ e1.printStackTrace();	}
 				}
-			}
 		};
 
 
@@ -181,12 +174,12 @@ public class BrowseFrame extends JFrame {
 
 					searchResultField.setText(searchResult);
 
-				} catch (ClassNotFoundException e1) {
-					e1.printStackTrace();							
-				} catch (SQLException e1) {
-					e1.printStackTrace();
+				} 
+                catch (ClassNotFoundException e1) 
+            		{ e1.printStackTrace(); } 
+				catch (SQLException e1) 
+            		{ e1.printStackTrace();	}
 				}
-			}
 		};
 
 		/*
@@ -216,12 +209,12 @@ public class BrowseFrame extends JFrame {
 					searchResultField.setText(searchResult);
 					scrollPane.repaint();
 					
-				} catch (ClassNotFoundException e1) {
-					e1.printStackTrace();							
-				} catch (SQLException e1) {
-					e1.printStackTrace();
+				} 
+                catch (ClassNotFoundException e1) 
+            		{ e1.printStackTrace(); } 
+				catch (SQLException e1) 
+            		{ e1.printStackTrace();	}
 				}
-			}
 		};
 
 		/*
@@ -238,11 +231,11 @@ public class BrowseFrame extends JFrame {
 				String results;
 				try {
 					bookResults = bookdba.searchAllBooks();
-				} catch (ClassNotFoundException e1) {
-					e1.printStackTrace();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
+				} 
+                catch (ClassNotFoundException e1) 
+            		{ e1.printStackTrace(); } 
+				catch (SQLException e1) 
+            		{ e1.printStackTrace();	}
 
 				for(int i=0; i<bookResults.size(); i++){//prints out the list of results in formatted string
 					results=bookResults.get(i).BooktoString();//may add "\n"
@@ -256,21 +249,31 @@ public class BrowseFrame extends JFrame {
 		 * the cart
 		 */
 		ActionListener AddToCartListener = new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent e) 
-			{
-				//	bookdba.getBookByEntryNum();
-				//sends book id number to back end, back end sends back book's info,
-				//it finds a book by the entry number in the datbase which is the primary key
-				//so when they are looking at books and want to add one to the cart, they type in the entry number
-				//which is displayed in the cart
-				dispose();
-				JFrame frame = new CartFrame();
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.setTitle("GetRid - Cart");
-				frame.setVisible(true);
-			}
-		};
+        {
+            public void actionPerformed(ActionEvent e) 
+            {
+                //sends book ISBN number to back end,  
+                //it finds a book by the entry number in the database and adds to the cart
+            	
+                String entrynum =  addToCartField.getText();			// added book ISBN
+                
+                try {	               	
+                    Book book = bookdba.getBookByEntryNum(entrynum);	// book's unique ID                    
+                    Variables.cart.add(book);							// add to shopping cart                   
+                } 
+                catch (ClassNotFoundException e1) 
+                	{ e1.printStackTrace(); } 
+                catch (SQLException e1) 
+                	{ e1.printStackTrace();	}
+                
+                 dispose();
+                 
+                 JFrame frame = new CartFrame();
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.setTitle("GetRid - Cart");
+                    frame.setVisible(true);
+            }
+        };
 
 		/**
 		 * This button when pressed takes the user back to the menu
@@ -321,7 +324,6 @@ public class BrowseFrame extends JFrame {
 		cartPanel 		= 	new JPanel();
 		menuPanel 		= 	new JPanel();
 		linePanel1 		= 	new JPanel();
-		linePanel2 		= 	new JPanel();
 		linePanel 		= 	new JPanel();
 
 		scrollPane = new JScrollPane(searchResultField); 	
@@ -376,7 +378,7 @@ public class BrowseFrame extends JFrame {
 		// line panels  
 		linePanel.add(lineLabel);
 		linePanel1.add(lineLabel1);
-		linePanel2.add(lineLabel2);
+		//linePanel2.add(lineLabel2);
 
 		// composing main panel
 

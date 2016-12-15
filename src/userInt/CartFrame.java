@@ -1,20 +1,20 @@
 package userInt;
 
-import java.awt.FlowLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JFrame;
-import javax.swing.JTextArea;
+import javax.swing.*;
 
 import DBAccessClasses.BookDBAccess;
 import ObjectClasses.Book;
 
 public class CartFrame extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final int FRAME_HEIGHT = 450;
 	private static final int FRAME_WIDTH = 450;
 	private JTextArea cartField;
@@ -25,9 +25,10 @@ public class CartFrame extends JFrame {
 	
 	//copy arraylist in a method then display the copy
 	//add arraylist here and have method heree to take book param and add to it
-	BookDBAccess bookdba= new BookDBAccess();//create object to get access 
 	
-	ArrayList<Book>cart=bookdba.getListofBooks();//create and fill arraylist
+	BookDBAccess bookdba = new BookDBAccess();//create object to get access 
+	
+	Variables.cart = bookdba.getListofBooks();//create and fill arraylist
 	
 	public CartFrame() 
 	{
@@ -38,7 +39,7 @@ public class CartFrame extends JFrame {
 		setSize(FRAME_WIDTH, FRAME_HEIGHT);
 	}
     
-	private void createTextArea() 
+	/*private void createTextArea() 
 	{
 		cartField = new JTextArea(20, 30);
 		//searchResultField.setText();
@@ -50,6 +51,26 @@ public class CartFrame extends JFrame {
 		    cartField.append("\n");
 		}  
 	}
+	*/
+
+private void createTextArea() 
+    {
+        cartField = new JTextArea(20, 30);
+        //searchResultField.setText();
+        cartField.setEditable(false);
+        //cartField.setText(cart.get(0)); //for Alexanders part 
+        
+        for (Book books : cart) {//goes through arraylist to prints it to the textarea
+            cartField.append(books.toString());
+            cartField.append("\n");
+        }  
+    }
+
+	BookDBAccess bookdba = new BookDBAccess();//create object to get access 
+    ArrayList<Book> cart = bookdba.getListofBooks();//create and fill arraylist
+	
+	
+	
 	
 	private void createButtons()
 	{
@@ -65,6 +86,8 @@ public class CartFrame extends JFrame {
  	 	   		frame.setResizable(false);
  	 	   		frame.setVisible(true);
  	    	}
+
+			
  	    };
  	    
  	   ActionListener CheckoutAndPayListener = new ActionListener() {

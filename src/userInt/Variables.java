@@ -1,11 +1,18 @@
 package userInt;
-/**
- * this class holds the variable that checks to see if th euser is logged in or not
+
+import java.util.ArrayList;
+
+import ObjectClasses.Book;
+
+/*
+ * this class holds all the global variables that checks to see if the user is logged in or not
  *
  */
 public class Variables {
 	public static Boolean isLoggedIn = false;
 	public static String  userName = "";
 	public static String userAccount = "";
+	
+	public static ArrayList<Book> cart;
 	
 }
