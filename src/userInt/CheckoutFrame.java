@@ -29,8 +29,8 @@ public class CheckoutFrame extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final int FRAME_HEIGHT = 450;
-	private static final int FRAME_WIDTH = 450;
+	private static final int FRAME_HEIGHT = 800;
+	private static final int FRAME_WIDTH = 500;
 	private JTextArea cartField;
 
 	private JPanel cartPanel;
