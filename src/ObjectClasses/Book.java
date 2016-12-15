@@ -96,12 +96,12 @@ public String getCondition() {
 }
 
 public String BooktoString(){//added to format the output of book objects
-	String format="Entry Number: "+EntryNumber+" Title:\t"+BookTitle+
+	String format="Entry Number: "+EntryNumber+" \nTitle:\t"+BookTitle+
 			"\nAuthor:\t"+AuthorFirstname+" "+AuthorLastname+
 			"\nCondition:\t"+Condition+
 			"\nISBN:\t"+ISBN+
 			"\nSeller:\t"+SellerName+
-			"\nPrice:"+Price+"\n";
+			"\nPrice: $"+Price+"\n";
 	return format;
 }
 

@@ -4,13 +4,16 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+
 import DBAccessClasses.TransactionDBAccess;
+import ObjectClasses.Book;
 
 /**
  * this class contains the user interface which will give the user the option of checking out
@@ -20,11 +23,17 @@ import DBAccessClasses.TransactionDBAccess;
  */
 
 public class CheckoutFrame extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final int FRAME_HEIGHT = 450;
 	private static final int FRAME_WIDTH = 450;
 	private JTextArea cartField;
+	
 	private JPanel cartPanel;
 	private JButton checkoutButton;
+	private JButton menuButton;
 	
 	TransactionDBAccess t1= new TransactionDBAccess();//added
 	
@@ -46,11 +55,22 @@ public class CheckoutFrame extends JFrame {
 		cartField = new JTextArea(20, 30);
 		//searchResultField.setText();
 		cartField.setEditable(false);
+		
+		 cartField.setText("");
+	        
+	        //cartField.setText(cart.get(0)); 
+	        
+	        for (Book books : Variables.cart) 
+	        {//goes through arraylist to prints it to the textarea
+	            cartField.append(books.BooktoString());
+	            cartField.append("\n");
+	            }
 	}
 	
 	private void createButtons()
 	{
 		checkoutButton = new JButton("Pay");
+		menuButton = new JButton ("Back to Main Menu");
  	    
  	   ActionListener CheckoutAndPayListener = new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
@@ -75,6 +95,18 @@ public class CheckoutFrame extends JFrame {
  	 	   		frame.setVisible(true);
 	    	}
 	    };
+	    
+	    ActionListener MenuListener = new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	 	    	dispose();
+	 	    	JFrame frame = new MenuFrame();
+	 	   		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	 	   		frame.setTitle("GetRid - Menu");
+	 	   		frame.setResizable(false);
+	 	   		frame.setVisible(true);
+	    	}
+	    };
+	    	menuButton.addActionListener(MenuListener);
 	   	    checkoutButton.addActionListener(CheckoutAndPayListener);
 	}
 	
@@ -87,6 +119,7 @@ public class CheckoutFrame extends JFrame {
 		cartPanel.add(scrollPane);
 		
 		cartPanel.add(checkoutButton);
+		cartPanel.add(menuButton);
 		
 		add(cartPanel);
 	}

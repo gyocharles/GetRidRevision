@@ -43,7 +43,7 @@ public class BookDBAccess {//may remove public access specifier
 			do {
 				//while there is data to be taken in, enter it in the correct variable and put it into a formatted string.
 				
-				//int entrynum=rs.getInt("Entry_number");
+				int entrynum=rs.getInt("Entry_number");
 				String title=rs.getString("Booktitle");
 				
 				String ISBN=rs.getString("ISBN");
@@ -54,7 +54,10 @@ public class BookDBAccess {//may remove public access specifier
 				String seller=rs.getString("Seller_Name");
 				double price=rs.getDouble("Price");
 				
-				searchResult += "Title: \t" + title +
+				searchResult = "";
+				searchResult += 
+						"\nItem ID #### \t" + entrynum +
+						"\nTitle: \t" + title +
 						"\nISBN: \t" + ISBN +
 						"\nAuthor: \t"+ authorFirst + " " + authorLast +
 						"\nSeller: \t" + seller +
@@ -79,21 +82,55 @@ public class BookDBAccess {//may remove public access specifier
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public ArrayList<Book> searchAllBooks() throws ClassNotFoundException, SQLException
+//	public ArrayList<Book> searchAllBooks() throws ClassNotFoundException, SQLException
+	public String searchAllBooks() throws ClassNotFoundException, SQLException
 	{
 		ArrayList<Book>books;
 		conn = DBConnection.getConnection();
+		String searchResult;
 		
 		PreparedStatement stmt= conn.prepareStatement("SELECT * FROM product");
 		ResultSet rs= stmt.executeQuery();
-		books = createResultList(rs);
+		searchResult = "";
+		//books = createResultList(rs);
+		
+		if(!rs.next()){
+			searchResult = "No Book found, please try again.";
+		}
+		else
+			do {
+				//while there is data to be taken in, enter it in the correct variable and put it into a formatted string.
+				
+				int entrynum=rs.getInt("Entry_number");
+				String title=rs.getString("Booktitle");
+				
+				String ISBN=rs.getString("ISBN");
+				
+				String condition=rs.getString("Condition");
+				String authorFirst=rs.getString("Author_Firstname");
+				String authorLast=rs.getString("Author_Lastname");
+				String seller=rs.getString("Seller_Name");
+				double price=rs.getDouble("Price");
+				
+
+				searchResult += 
+						"\nItem ID #### \t" + entrynum +
+						"\nTitle: \t" + title +
+						"\nISBN: \t" + ISBN +
+						"\nAuthor: \t"+ authorFirst + " " + authorLast +
+						"\nSeller: \t" + seller +
+						"\nCondition: \t" + condition +
+						"\nPrice:\t $" + price +"\n\n";
+				
+			} while(rs.next());
+				
 		stmt.close();
 		
 		/*for(int i=0; i<books.size(); i++){//prints out the list of results in formatted string
 			books.get(i).BooktoString();
 		}	*/
 		
-		return books;
+		return searchResult;
 	}
 
 	/**
@@ -162,7 +199,7 @@ public class BookDBAccess {//may remove public access specifier
 			do {
 				//while there is data to be taken in, enter it in the correct variable and put it into a formatted string.
 				
-				//int entrynum=rs.getInt("Entry_number");
+				int entrynum=rs.getInt("Entry_number");
 				String title = rs.getString("Booktitle");
 				
 				String ISBN 		= rs.getString("ISBN");				
@@ -172,13 +209,15 @@ public class BookDBAccess {//may remove public access specifier
 				String seller		= rs.getString("Seller_Name");
 				double price		= rs.getDouble("Price");
 				
-				searchResult += "Title: \t" + title +
+				searchResult = "";
+				searchResult += 
+						"\nItem ID #### \t" + entrynum +
+						"\nTitle: \t" + title +
 						"\nISBN: \t" + ISBN +
 						"\nAuthor: \t"+ authorFirst + " " + authorLast +
 						"\nSeller: \t" + seller +
 						"\nCondition: \t" + condition +
-						"\nPrice:\t $" + price +"\n\n";
-				
+						"\nPrice:\t $" + price +"\n\n";			
 			} while(rs.next());
 
 		stmt.close();
@@ -226,18 +265,20 @@ public class BookDBAccess {//may remove public access specifier
 		do {
 			//while there is data to be taken in, enter it in the correct variable and put it into a formatted string.
 			
-			//int entrynum=rs.getInt("Entry_number");
-			String title=rs.getString("Booktitle");
+			int entrynum=rs.getInt("Entry_number");
 			
-			String ISBN=rs.getString("ISBN");
+			String title		=rs.getString("Booktitle");			
+			String ISBN			=rs.getString("ISBN");			
+			String condition	=rs.getString("Condition");
+			String authorFirst	=rs.getString("Author_Firstname");
+			String authorLast	=rs.getString("Author_Lastname");
+			String seller		=rs.getString("Seller_Name");
+			double price		=rs.getDouble("Price");
 			
-			String condition=rs.getString("Condition");
-			String authorFirst=rs.getString("Author_Firstname");
-			String authorLast=rs.getString("Author_Lastname");
-			String seller=rs.getString("Seller_Name");
-			double price=rs.getDouble("Price");
-			
-			searchResult += "Title: \t" + title +
+			searchResult = "";
+			searchResult += 
+					"\nItem ID #### \t" + entrynum +
+					"\nTitle: \t" + title +
 					"\nISBN: \t" + ISBN +
 					"\nAuthor: \t"+ authorFirst + " " + authorLast +
 					"\nSeller: \t" + seller +
@@ -245,18 +286,16 @@ public class BookDBAccess {//may remove public access specifier
 					"\nPrice:\t $" + price +"\n\n";
 			
 		} while(rs.next());
-		
-		
+				
 		stmt.close();
 		return searchResult;//return the formated string
 	}
 	
 	
-	
-	
-	 /**
+	 /*
 	  * This method will search for a book in the database by seller's account number 
 	  * when someone is trying to find their book, they can use this method
+	  * 
 	  * @param num the seller's account number
 	  * @return formatted string of the result
 	  * @throws ClassNotFoundException
@@ -267,29 +306,36 @@ public class BookDBAccess {//may remove public access specifier
 	{
 		conn=DBConnection.getConnection();
 		String searchResult="";
-		PreparedStatement stmt= conn.prepareStatement("SELECT Entry_number, Booktitle, IBSN, Condition, Author_Firstname, Author_Lastname, Seller_Name, "
-				+ "Price FROM product WHERE SellerAccountNum=?");
+		
+		PreparedStatement stmt= conn.prepareStatement("SELECT  * FROM product WHERE SellerAccountNum=?");
+		
 		stmt.setInt(1,num);
 		ResultSet rs= stmt.executeQuery();
+		
 		if(!rs.next()){
 			searchResult="No Book found, please try again";
 		}
 		
 		else
 			while(rs.next()){//while there is data to be taken in, enter it in the correct variable and put it into a formatted string.
-			//	int entrynum=rs.getInt("Entry_number");
-				String title=rs.getString("Booktitle");
-				int ISBN=rs.getInt("ISBN");
-				String condition=rs.getString("Condition");
+				int entrynum=rs.getInt("Entry_number");
+				String title	= rs.getString("Booktitle");
+				String ISBN		= rs.getString("ISBN");
+				String condition= rs.getString("Condition");
 				String authorFirst=rs.getString("Author_Firstname");
 				String authorLast=rs.getString("Author_Lastname");
-				String seller=rs.getString("Seller_Name");
-				double price=rs.getDouble("Price");
-				searchResult="Title" +"\t"+title+
-						"\nISBN:\t"+ISBN+
-						"\nAuthor:"+authorFirst+" "+authorLast+
-						"\nSeller:\t"+seller+
-						"\nCondition:\t"+condition+"\nPrice:\t"+price;
+				String seller	=rs.getString("Seller_Name");
+				double price	=rs.getDouble("Price");
+				
+				searchResult = "";
+				searchResult += 
+						"\nItem ID #### \t" + entrynum +
+						"\nTitle: \t" + title +
+						"\nISBN: \t" + ISBN +
+						"\nAuthor: \t"+ authorFirst + " " + authorLast +
+						"\nSeller: \t" + seller +
+						"\nCondition: \t" + condition +
+						"\nPrice:\t $" + price +"\n\n";
 			}
 		
 		stmt.close();
@@ -308,8 +354,7 @@ public class BookDBAccess {//may remove public access specifier
 	{
 		conn=DBConnection.getConnection();
 		String searchResult="";
-		PreparedStatement stmt= conn.prepareStatement("SELECT Entry_number, Booktitle, IBSN, Condition, Author_Firstname, Author_Lastname, Seller_Name, "
-				+ "Price FROM product WHERE Seller_Name=?");
+		PreparedStatement stmt= conn.prepareStatement("SELECT * FROM product WHERE Seller_Name=?");
 		stmt.setString(1,name);
 		ResultSet rs= stmt.executeQuery();
 		if(!rs.next()){
@@ -317,27 +362,32 @@ public class BookDBAccess {//may remove public access specifier
 		}
 		else
 			while(rs.next()){//while there is data to be taken in, enter it in the correct variable and put it into a formatted string.
-				int entrynum=rs.getInt("Entry_number");
-				String title=rs.getString("Booktitle");
-				int ISBN=rs.getInt("ISBN");
-				String condition=rs.getString("Condition");
-				String authorFirst=rs.getString("Author_Firstname");
-				String authorLast=rs.getString("Author_Lastname");
-				String seller=rs.getString("Seller_Name");
-				double price=rs.getDouble("Price");
-				searchResult="Entry Number: "+entrynum+"\t"+title+
-						"\nISBN:\t"+ISBN+
-						"\nAuthor:"+authorFirst+" "+authorLast+
-						"\nSeller:\t"+seller+
-						"\nCondition:\t"+condition+"\nPrice:\t"+price;
-			}
+				int entrynum	=	rs.getInt("Entry_number");
+				String title	=	rs.getString("Booktitle");
+				String ISBN		=	rs.getString("ISBN");
+				String condition	= rs.getString("Condition");
+				String authorFirst	= rs.getString("Author_Firstname");
+				String authorLast	= rs.getString("Author_Lastname");
+				String seller	= rs.getString("Seller_Name");
+				double price	= rs.getDouble("Price");
+				
+				searchResult = "";
+				searchResult += 
+						"\nItem ID #### \t" + entrynum +
+						"\nTitle: \t" + title +
+						"\nISBN: \t" + ISBN +
+						"\nAuthor: \t"+ authorFirst + " " + authorLast +
+						"\nSeller: \t" + seller +
+						"\nCondition: \t" + condition +
+						"\nPrice:\t $" + price +"\n\n";			}
 		
 		stmt.close();
 		return searchResult;//return the formated string
 	}
 
 	/**
-	 * This method will search for a book by its entry number on the product table of the database
+	 * This method will search for a book by its unique entry number in the product table 
+	 * 
 	 * @param entrynum2 the entry number
 	 * @return a book object with the information of the book selected
 	 * @throws ClassNotFoundException
@@ -345,43 +395,59 @@ public class BookDBAccess {//may remove public access specifier
 	 */
 	
 	
-	public Book getBookByEntryNum(String entrynum2)throws ClassNotFoundException, SQLException{//added to find book by entry number so it can be added to the cart  
+	public Book getBookByEntryNum (int id) throws ClassNotFoundException, SQLException{//added to find book by entry number so it can be added to the cart  
+		
 		conn=DBConnection.getConnection();
 		//String searchResult=null;
+		
 		Book book = null;
-		PreparedStatement stmt= conn.prepareStatement("SELECT Entry_number, SellerAccountNum, Booktitle, IBSN, Condition, Author_Firstname, Author_Lastname, Seller_Name, "
-				+ "Price FROM product WHERE Entry_number=?");
-		stmt.setString(1,entrynum2);
-		ResultSet rs= stmt.executeQuery();
-		/*if(!rs.next()){
-			searchResult="No Book found, please try again";
+		PreparedStatement stmt= conn.prepareStatement("SELECT * FROM product WHERE Entry_number=?");
+		
+		stmt.setInt(1,id);
+		ResultSet rs = stmt.executeQuery();
+		
+		if(!rs.next())
+		{			
+			//searchResult="No Book found, please try again";
 			//return searchResult;//return a message saying the book wasn't found
+			//book=new Book ( 1, 2, "seller", "title",
+			//		"authorFirst", "authorLast", "ISBN", 1.7, "bad");
+			book = null;
 		}
-		else*/
-			while(rs.next()){//while there is data to be taken in, enter it in the correct variable and put it into a formatted string.
-				int entrynum=rs.getInt("Entry_number");
-				int sellAccnum=rs.getInt("SellerAccountNum");
-				String title=rs.getString("Booktitle");
-				String ISBN=rs.getString("ISBN");
-				String condition=rs.getString("Condition");
-				String authorFirst=rs.getString("Author_Firstname");
-				String authorLast=rs.getString("Author_Lastname");
-				String seller=rs.getString("Seller_Name");
+		else
+
+			{//while there is data to be taken in, enter it in the correct variable and put it into a formatted string.
+				int entrynum		= rs.getInt("Entry_number");
+				int sellAccnum		= rs.getInt("SellerAccountNum");
+				String title		= rs.getString("Booktitle");
+				String ISBN			= rs.getString("ISBN");
+				String condition	= rs.getString("Condition");
+				String authorFirst	= rs.getString("Author_Firstname");
+				String authorLast	= rs.getString("Author_Lastname");
+				String seller		= rs.getString("Seller_Name");
+				
 				double price=rs.getDouble("Price");
 				
-				book= new Book( entrynum, sellAccnum, seller, title,
+				book = new Book ( entrynum, sellAccnum, seller, title,
 						authorFirst, authorLast, ISBN, price, condition);
 				
-			}
+			} 
+			
 		stmt.close();
 		return book;
+		
 		  //must add ____ cart.add(book);//add the found 
 	}
 	/**
-	 * This method will be called when a user is adding a book to the database. All the parameters can be passed at the moment the method is called or 
-	 * the object can be created then past making the method take Book type parameters. Changes may have to be made for auto incrementing primary key
-	 * and whatever field parameters we decide on keeping or omitting. Maybe have a boolean variable to return when the method finishes?
+	 * This method will be called when a user is adding a book to the database. All the parameters can be passed 
+	 * at the moment the method is called or 
+	 * the object can be created then past making the method take Book type parameters. 
+	 * Changes may have to be made for auto incrementing primary key
+	 * and whatever field parameters we decide on keeping or omitting. 
+	 * Maybe have a boolean variable to return when the method finishes?
+	 * 
 	 * @param EntryNumber the auto incremented number that notes the entry of the book in the table
+	 * 
 	 * @param SellerAccNum the seller's account number that may or may not be randomly generated by us
 	 * @param SellerName the name of the Seller
 	 * @param BookTitle the title of the book
@@ -392,17 +458,18 @@ public class BookDBAccess {//may remove public access specifier
 	 * @param Condition the condition of the book
 	 * @throws SQLException 
 	 */
-	public void addBook( int SellerAccNum, String SellerName, String BookTitle, String AuthorFirstname, String AuthorLastname, int ISBN, double Price, String Condition) throws SQLException
+	public void addBook( int SellerAccNum, String SellerName, String BookTitle, String AuthorFirstname, String AuthorLastname, String ISBN, double Price, String Condition) throws SQLException
 	{
 		conn=DBConnection.getConnection();
-		PreparedStatement stmt= conn.prepareStatement("INSERT into Product values(?, ?, ?, ?, ?, ?, ?, ?)");
+		PreparedStatement stmt= conn.prepareStatement("INSERT into Product values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
 		//stmt.setInt(1, EntryNumber); this field of the table is auto incremented
+		
 		stmt.setInt(2, SellerAccNum);
 		stmt.setString(3, SellerName);
 		stmt.setString(4, BookTitle);
 		stmt.setString(5, AuthorFirstname);
 		stmt.setString(6, AuthorLastname);
-		stmt.setInt(7, ISBN);
+		stmt.setString(7, ISBN);
 		stmt.setDouble(8, Price);
 		stmt.setString(9, Condition);
 		
@@ -411,10 +478,14 @@ public class BookDBAccess {//may remove public access specifier
 	
 	/**
 	 * This method will let users remove a book from the database they no long wish to sell
-	 * it will remove a record that matches the title and seller account number. There should be a check variable but that depends on how this 
-	 * method will be called and where the results will be displayed. the check variable will let the user know the record
-	 * has been deleted successfully. the primary key of the table or user account(whatever it may be) must be passed as a check to make sure a user is 
+	 * it will remove a record that matches the title and seller account number. 
+	 * There should be a check variable but that depends on how this 
+	 * method will be called and where the results will be displayed. 
+	 * the check variable will let the user know the record
+	 * has been deleted successfully. the primary key of the table or user account(whatever it may be) 
+	 * must be passed as a check to make sure a user is 
 	 * deleting their own book
+	 * 
 	 * @param entrynum
 	 * @param accNum
 	 * @throws SQLException 
@@ -427,11 +498,11 @@ public class BookDBAccess {//may remove public access specifier
 	}
 
 
-
+/*
 	public ArrayList<Book> getListofBooks() {
 		return null;
         //return cart;
 	}
-
+*/
 	
 }

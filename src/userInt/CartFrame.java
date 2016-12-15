@@ -28,7 +28,7 @@ public class CartFrame extends JFrame {
 	
 	BookDBAccess bookdba = new BookDBAccess();//create object to get access 
 	
-	Variables.cart = bookdba.getListofBooks();//create and fill arraylist
+	// Variables.cart = bookdba.getListofBooks();//create and fill arraylist
 	
 	public CartFrame() 
 	{
@@ -58,16 +58,18 @@ private void createTextArea()
         cartField = new JTextArea(20, 30);
         //searchResultField.setText();
         cartField.setEditable(false);
+        cartField.setText("");
+        
         //cartField.setText(cart.get(0)); //for Alexanders part 
         
-        for (Book books : cart) {//goes through arraylist to prints it to the textarea
-            cartField.append(books.toString());
+        for (Book books : Variables.cart) {//goes through arraylist to prints it to the textarea
+            cartField.append(books.BooktoString());
             cartField.append("\n");
         }  
     }
 
-	BookDBAccess bookdba = new BookDBAccess();//create object to get access 
-    ArrayList<Book> cart = bookdba.getListofBooks();//create and fill arraylist
+//	BookDBAccess bookdba = new BookDBAccess();//create object to get access 
+//    ArrayList<Book> cart = bookdba.getListofBooks();//create and fill arraylist
 	
 	
 	
@@ -76,6 +78,7 @@ private void createTextArea()
 	{
 		addAnotherBookButton = new JButton("Add Another Book");
 		checkoutButton = new JButton("Checkout and Pay");
+		menu = new JButton ("Back to Main Menu");
 		
 		 ActionListener AddAnotherBookListener = new ActionListener() {
  	    	public void actionPerformed(ActionEvent e) {
@@ -95,6 +98,7 @@ private void createTextArea()
 	    		// check if IsLoggedIn = true, then add up all prices of books in cart and move to CheckoutFrame
 	    		if(Variables.isLoggedIn) 
 	    		{
+	    			 dispose();
 	    			JFrame frame = new CheckoutFrame();
  	 	   			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
  	 	   			frame.setTitle("GetRid - Checkout");
@@ -126,8 +130,6 @@ private void createTextArea()
 	    };
 	    
 	    menu.addActionListener(MenuListener);
-	   
-
 	    addAnotherBookButton.addActionListener(AddAnotherBookListener);
 	    checkoutButton.addActionListener(CheckoutAndPayListener);
 	}

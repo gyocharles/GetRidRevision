@@ -4,6 +4,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,6 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import DBAccessClasses.BookDBAccess;
+import DBAccessClasses.UserDBAccess;
 
 public class SignUpFrame extends JFrame {
 	private static final int FRAME_HEIGHT = 450;
@@ -20,6 +24,9 @@ public class SignUpFrame extends JFrame {
 	
 	private JLabel emailLabel;
 	private JTextField emailField;
+	
+	private JLabel billingAddressLabel;
+	private JTextField billingAddressField;
 	
 	private JLabel user_idLabel;
 	private JTextField user_idField;
@@ -42,6 +49,8 @@ public class SignUpFrame extends JFrame {
 	private JButton browseButton;
 	private JButton createAccountButton;
 	
+	UserDBAccess userdba= new UserDBAccess();
+	
 	public SignUpFrame() 
 	{
 		createTextField();
@@ -63,11 +72,14 @@ public class SignUpFrame extends JFrame {
 	         lastNameField = new JTextField(FIELD_WIDTH);
 	         cardNumberLabel = new JLabel("   Card Number: ");	   
 	         cardNumberField = new JTextField(FIELD_WIDTH);
-
+	         
 	         expirationDateLabel = new JLabel("   Expiration Date: ");	   
 	         expirationDateField = new JTextField(FIELD_WIDTH);
 	         cvcCodeLabel = new JLabel("   CVC Security Code: ");	   
 	         cvcCodeField = new JTextField(FIELD_WIDTH);
+	       
+	         billingAddressLabel = new JLabel("   Address: ");	   
+	         billingAddressField = new JTextField(FIELD_WIDTH);
 	        }
 	
 	private void createButtons()
@@ -93,6 +105,17 @@ public class SignUpFrame extends JFrame {
 	    	public void actionPerformed(ActionEvent ae) 
 	    	{
 	    		//TODO send to backend User table the info in the textfields
+	    		
+	    		try {
+					userdba.addInfo 
+					
+					( firstNameField.getText(),  lastNameField.getText(),  billingAddressField.getText(), 
+							billingAddressField.getText(), cardNumberField.getText(),  emailField.getText(),  
+							  678) ;
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		    		
 	    		dispose();
 	    		JOptionPane.showMessageDialog(null, "Your Account has been created. Please log in to continue.");

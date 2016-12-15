@@ -4,13 +4,17 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 public class MenuFrame extends JFrame {
-	private static final int FRAME_HEIGHT = 450;
-	private static final int FRAME_WIDTH = 450;
+	private static final int FRAME_HEIGHT = 350;
+	private static final int FRAME_WIDTH = 7000;
 	private JButton browseButton;
 	private JButton ridButton;
 	private JButton cartButton;
@@ -29,7 +33,7 @@ public class MenuFrame extends JFrame {
 	private void createButtons()
 	{
 		browseButton = new JButton("Browse");
-		ridButton = new JButton("Rid");
+		ridButton = new JButton("Sell a Book");
 		cartButton = new JButton("Cart");
 		accountManagementButton = new JButton("Edit Account Info");
 
@@ -89,7 +93,8 @@ public class MenuFrame extends JFrame {
 	private void createPanel()
 	{
 		menuPanel = new JPanel();
-		menuPanel.setLayout(new GridLayout(4, 1));
+		//menuPanel.setLayout(new BoxLayout( new ));
+		menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
 		
 		menuPanel.add(browseButton);
 		menuPanel.add(ridButton);

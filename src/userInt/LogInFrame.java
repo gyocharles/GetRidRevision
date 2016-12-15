@@ -69,6 +69,7 @@ public class LogInFrame extends JFrame
 						JOptionPane.INFORMATION_MESSAGE);
 						//if no problems with login
 						Variables.isLoggedIn = true;
+						Variables.userName = usernameField.getText();
 						dispose();
 						
 						JFrame frame = new MenuFrame();

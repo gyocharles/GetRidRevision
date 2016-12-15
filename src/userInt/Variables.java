@@ -13,6 +13,6 @@ public class Variables {
 	public static String  userName = "";
 	public static String userAccount = "";
 	
-	public static ArrayList<Book> cart;
+	public static ArrayList<Book> cart = new ArrayList<Book> ();
 	
 }

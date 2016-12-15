@@ -1,5 +1,6 @@
 package userInt;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,13 +8,14 @@ import javax.swing.*;
 
 public class WelcomeFrame extends JFrame {
 	
-	private static final int FRAME_HEIGHT = 550;
-	private static final int FRAME_WIDTH = 550;
+	private static final int FRAME_HEIGHT = 650;
+	private static final int FRAME_WIDTH = 1050;
 	private JTextArea welcomeField;
 	private JPanel welcomePanel;
 	private String welcomeText;
 	private JButton browseButton;
 	private JButton logInButton;
+	//private JPanel buttonsPanel;
 	
 	public WelcomeFrame() 
 	{
@@ -27,25 +29,30 @@ public class WelcomeFrame extends JFrame {
 	private void createPanel()
 	{
 		welcomePanel = new JPanel();
-		welcomePanel.setLayout(new FlowLayout());
-		ImageIcon image = new ImageIcon("getRidLogo.png");
+		//buttonsPanel= new JPanel();
+		welcomePanel.setLayout(new BorderLayout());
+		ImageIcon image = new ImageIcon("getridLogo.png");
         JLabel imageLabel = new JLabel(image); 
 		imageLabel.setBounds(5, 5, 5, 5);
 		imageLabel.setVisible(true);
         welcomePanel.add(imageLabel);
-        
-		welcomePanel.add(welcomeField);
-		welcomePanel.add(browseButton);
+        welcomePanel.add(welcomeField);
+		
+        //buttonsPanel.add(browseButton);
+        //buttonsPanel.add(logInButton);
+		
+        welcomePanel.add(browseButton);
 		welcomePanel.add(logInButton);
 		
 		add(welcomePanel);
+		//add(buttonsPanel);
 	}
 	
 	private void createTextArea() 
 	{
-		welcomeText = "Welcome to GetRid, a simple program that helps college students "
+		welcomeText = "\n\nWelcome to GetRid, a simple program that helps college students "
 				+ "\nto buy and sell textbooks! Start by browsing as a guest or logging in as a user.";
-		welcomeField = new JTextArea(5, 10);
+		welcomeField = new JTextArea(5, 10);//5,10
 		welcomeField.setText(welcomeText);
 		welcomeField.setEditable(false);
 	}

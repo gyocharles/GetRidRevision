@@ -16,6 +16,7 @@ public class MainClass
 	public static void main(String[]args) throws SQLException
 	{
 		JFrame frame = new WelcomeFrame();
+		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("GetRid");
 		frame.setVisible(true);
