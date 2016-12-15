@@ -11,8 +11,8 @@ import DBAccessClasses.DBConnection;
 
 public class LogInFrame extends JFrame 
 {
-	private static final int FRAME_HEIGHT = 450;
-	private static final int FRAME_WIDTH = 600;
+	private static final int FRAME_HEIGHT = 800;
+	private static final int FRAME_WIDTH = 500;
 
 	private JPanel loginPanel;
 	private JLabel usernameLabel;

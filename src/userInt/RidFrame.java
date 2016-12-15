@@ -15,13 +15,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import DBAccessClasses.BookDBAccess;
 
 public class RidFrame extends JFrame {
-	private static final int FRAME_HEIGHT = 450;
-	private static final int FRAME_WIDTH = 450;
+	private static final int FRAME_HEIGHT = 800;
+	private static final int FRAME_WIDTH = 500;
 
 	private JPanel ridPanel;
 	
@@ -46,9 +47,12 @@ public class RidFrame extends JFrame {
 	private JButton menuButton;
 	private JButton submitButton;
 	
+	
+	
 	private JLabel SellerNameLabel;//added
 	private JTextField SellerNameField;//added
 	
+
 	
 	BookDBAccess bookdba= new BookDBAccess();//added to give access to the BookDBAccess class
 	public RidFrame() 
@@ -82,6 +86,7 @@ public class RidFrame extends JFrame {
 	{
 		menuButton = new JButton("Main Menu");
 		submitButton = new JButton("Post Book");
+		
 		
 		 ActionListener MenuListener = new ActionListener()
 		 {
@@ -137,6 +142,8 @@ public class RidFrame extends JFrame {
 	    	}
 	    	 
  	    };
+ 	    
+ 	   
 		 
  	    menuButton.addActionListener(MenuListener);
 	 	submitButton.addActionListener(PostBookListener);
