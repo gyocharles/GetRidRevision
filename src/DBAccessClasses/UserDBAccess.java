@@ -16,7 +16,6 @@ import java.util.*;
  * @author gchar158
  *
  */
-
 	public class UserDBAccess {
 
 	    private static Connection conn;

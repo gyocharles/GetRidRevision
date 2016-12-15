@@ -1,83 +1,58 @@
 package DBAccessClasses;
 /**
- * this class will handle notifying the seller and buy via email after a transaction has been made
+ * this class will handle notifying the seller and buyer via email after a transaction has been made.
  * there will be one method that sends an email to the seller and one that sends an email to the buyer
  * the methods should take the email of their intended recipient and the book being bought if to the seller
- * and a list of the order if to the buyer. This is a draft with no functionality
- * @author gchar158
- *
+ * and a list of the order if to the buyer. 
+ * @MiYoen
  */
-import java.util.*;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
  
-
-import ObjectClasses.Book;
-
-import javax.activation.*;
+ 
 public class Notification {
-String from;//an email set up for GetRid 
-String host="localhost";//may have to fully declare this variable
-	
-	public void sendToSeller(String seller, Book book){//pass the email/name of the seller and the book being sold
-		Properties properties= new Properties();
-		properties.setProperty("mail.smtp.host", host);
-
-	      // Get the default Session object.
-	      Session session = Session.getDefaultInstance(properties);
-
-	      try {
-	         // Create a default MimeMessage object.
-	         MimeMessage message = new MimeMessage(session);
-
-	         // Set From: header field of the header.
-	         message.setFrom(new InternetAddress(from));
-
-	         // Set To: header field of the header.
-	         message.addRecipient(Message.RecipientType.TO, new InternetAddress(seller));
-
-	         // Set Subject: header field
-	         message.setSubject("Your Book Has Been Purchased!");
-
-	         // Now set the actual message
-	         message.setText("Your book has been purchased. Please mail the following book to GetRid by the end "
-	         		+ "of the week to recieve payment\n"+book.toString()+" \nDO NOT REPLY TO THIS MESSAGE");
-	         //may add an arbitrary address and a formatted shipping label-stored in variables
-
-	         // Send message
-	         Transport.send(message);
-	      }catch (MessagingException mex) {
-	         mex.printStackTrace();
-	      }
-	}
-	
-	public void sendToBuyer(String buyer){//in addition to the email/name of the buyer, may pass a formatted string detailing their purchase from transaction
-		Properties properties= new Properties();
-		properties.setProperty("mail.smtp.host", host);
-
-	      // Get the default Session object.
-	      Session session = Session.getDefaultInstance(properties);
-
-	      try {
-	         // Create a default MimeMessage object.
-	         MimeMessage message = new MimeMessage(session);
-
-	         // Set From: header field of the header.
-	         message.setFrom(new InternetAddress(from));
-
-	         // Set To: header field of the header.
-	         message.addRecipient(Message.RecipientType.TO, new InternetAddress(buyer));
-
-	         // Set Subject: header field
-	         message.setSubject("Thank You for Your Purchase!");
-
-	         // Now set the actual message
-	         message.setText("Thank you using GetRid.\nThe seller(s) of your books have been notified."
-	         		+ "\nPLease allow for two weeks for delivery \nDO NOT REPLY TO THIS MESSAGE");
-	         //may add an arbitrary address and a formatted shipping label-stored in variables
-
-	         // Send message
-	         Transport.send(message);
-	      }catch (MessagingException mex) {
-	         mex.printStackTrace();
-	      }
+ 
+	static Properties mailServerProperties;
+	static Session getMailSession;
+	static MimeMessage generateMailMessage;
+ 
+	public static void generateAndSendEmail(String userEmail) throws AddressException, MessagingException { //pass through the user's email that he/she types in
+ 
+		// Step1
+		System.out.println("\n 1st ===> setup Mail Server Properties..");
+		mailServerProperties = System.getProperties();
+		mailServerProperties.put("mail.smtp.port", "587");
+		mailServerProperties.put("mail.smtp.auth", "true");
+		mailServerProperties.put("mail.smtp.starttls.enable", "true");
+		System.out.println("Mail Server Properties have been setup successfully..");
+ 
+		// Step2
+		String userE = userEmail;
+		
+		System.out.println("\n\n 2nd ===> get Mail Session..");
+		getMailSession = Session.getDefaultInstance(mailServerProperties, null);
+		generateMailMessage = new MimeMessage(getMailSession);
+		generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(userE));
+		generateMailMessage.setSubject("Payment Confirmation");
+		String emailBody = "This email is to confirm your transaction for the book(s)...Thank you for using GetRid; we will update you once the book(s) has been shipped to you!" + "<br><br> Regards, <br>GetRid Admin";
+		generateMailMessage.setContent(emailBody, "text/html");
+		System.out.println("Mail Session has been created successfully..");
+ 
+		// Step3
+		System.out.println("\n\n 3rd ===> Get Session and Send mail");
+		Transport transport = getMailSession.getTransport("smtp");
+ 
+		// Enter your correct gmail UserID and Password
+		// if you have 2FA enabled then provide App Specific Password
+		transport.connect("smtp.gmail.com", "getridinc@gmail.com", "GetRid16");
+		transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
+		transport.close();
 	}
 }

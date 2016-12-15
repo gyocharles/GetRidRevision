@@ -16,10 +16,7 @@ import DBAccessClasses.TransactionDBAccess;
 import ObjectClasses.Book;
 
 /**
- * this class contains the user interface which will give the user the option of checking out
- * more specifically this class shows what will happen when a user clicks on the checkout button
- * @author 
- *
+ * This class handles user check out. Accessed from the CartFrame and uses the Transaction class
  */
 
 public class CheckoutFrame extends JFrame {
@@ -53,15 +50,11 @@ public class CheckoutFrame extends JFrame {
 	private void createTextArea() 
 	{
 		cartField = new JTextArea(20, 30);
-		//searchResultField.setText();
 		cartField.setEditable(false);
-		
-		 cartField.setText("");
-	        
-	        //cartField.setText(cart.get(0)); 
-	        
+		cartField.setText("");
+	
 	        for (Book books : Variables.cart) 
-	        {//goes through arraylist to prints it to the textarea
+	        {
 	            cartField.append(books.BooktoString());
 	            cartField.append("\n");
 	            }
@@ -77,9 +70,7 @@ public class CheckoutFrame extends JFrame {
 	    		// check if IsLoggedIn = true, then add up all prices of books in cart and move to paymentFrame
 	    		//check if IsLoggedIn = false, then go to LogInFrame
 	    		
-	    	
-	    		
-	    		t1.addTransaction();
+	    		t1.addTransaction();//error caused here-must fix
 	    		/*try {                                       
 					t1.retrieveTransaction();          //The code that's commented out serves as a "receipt" for when a user checks out.
 				} catch (SQLException e1) {
@@ -95,7 +86,7 @@ public class CheckoutFrame extends JFrame {
  	 	   		frame.setVisible(true);
 	    	}
 	    };
-	    
+	    //Return to main menu
 	    ActionListener MenuListener = new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	 	    	dispose();

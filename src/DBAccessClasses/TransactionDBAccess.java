@@ -63,9 +63,6 @@ public class TransactionDBAccess {
 	Double total;
 	String received; 
 	String shipped;
-
-	//int transactionNum;
-	
 	
 	/**
 	 * The following method is in charge of creating a transaction once a user makes a purchase. 
@@ -110,8 +107,6 @@ public class TransactionDBAccess {
 		conn.close();
 	}
 	
-	
-	
 
 	/**
 	 * The following method is in charge of initiating the createTransaction method. This method will be called in the 
@@ -129,10 +124,7 @@ public class TransactionDBAccess {
 			e.printStackTrace();
 		}
 		
-		
 	}
-	
-	
 	
 	/**
 	 * The following method is in charge of retrieving the transaction. That will then be sent to the user asa  receipt once they

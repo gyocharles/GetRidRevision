@@ -15,7 +15,10 @@ import javax.swing.JTextField;
 
 import DBAccessClasses.BookDBAccess;
 import DBAccessClasses.UserDBAccess;
-
+/**
+ * This user is brought to this class when they want to, or are forced to create an account.
+ * From here the user will be 
+ */
 public class SignUpFrame extends JFrame {
 	private static final int FRAME_HEIGHT = 450;
 	private static final int FRAME_WIDTH = 800;
@@ -86,7 +89,7 @@ public class SignUpFrame extends JFrame {
 	{
 		browseButton = new JButton("Back to Browsing");
 		createAccountButton = new JButton("Create Account");
-		
+		//return to BrowseFrame for searching
 		 ActionListener BrowseListener = new ActionListener()
 		 {
 			public void actionPerformed(ActionEvent ae) 
@@ -99,24 +102,23 @@ public class SignUpFrame extends JFrame {
  	 	   		frame.setVisible(true);
 			}
  	    };
-		 
+		/**
+		 * Create an Account
+		 * when this button is pressed the user will have an account created for them using the filled in fields
+		 * and prompt them to log in to complete the process then take them to the main menu
+		 */
  	   ActionListener CreateAccountListener = new ActionListener() 
  	   {
 	    	public void actionPerformed(ActionEvent ae) 
 	    	{
-	    		//TODO send to backend User table the info in the textfields
-	    		
 	    		try {
-					userdba.addInfo 
-					
+					userdba.addInfo 					
 					( firstNameField.getText(),  lastNameField.getText(),  billingAddressField.getText(), 
 							billingAddressField.getText(), cardNumberField.getText(),  emailField.getText(),  
 							  678) ;
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
-		    		
+				}		
 	    		dispose();
 	    		JOptionPane.showMessageDialog(null, "Your Account has been created. Please log in to continue.");
 	    		JFrame frame = new LogInFrame();
@@ -124,23 +126,17 @@ public class SignUpFrame extends JFrame {
  	 	   		frame.setTitle("GetRid - Log In");
  	 	   		frame.setResizable(false);
  	 	   		frame.setVisible(true);
-	    	}
-	    	 
- 	    };
-		 
+	    	}	    	 
+ 	    };		 
  	    browseButton.addActionListener(BrowseListener);
-	 	createAccountButton.addActionListener(CreateAccountListener);
-		
+	 	createAccountButton.addActionListener(CreateAccountListener);		
 	}
-	
- 	   
+		   
 	private void createPanel()
-	{
-	
+	{	
 		signupPanel = new JPanel();
 		signupPanel.setLayout(new FlowLayout());
-        
-		
+        	
 		JPanel middlePanel = new JPanel();
 		middlePanel.setLayout(new GridLayout(7, 2));
 		
@@ -164,9 +160,7 @@ public class SignUpFrame extends JFrame {
         
         middlePanel.add(cvcCodeLabel);
         middlePanel.add(cvcCodeField);
-       
-        
-        
+            
 		JPanel bottomPanel = new JPanel();
 		bottomPanel.add(browseButton);
 		bottomPanel.add(createAccountButton);		
