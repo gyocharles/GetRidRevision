@@ -37,4 +37,6 @@ public class Variables {
 	
 	public static ArrayList<Book> cart = new ArrayList<Book> ();
 	
+	public static String cartInfo; //what is to be sent in the body of notification email
+	
 }

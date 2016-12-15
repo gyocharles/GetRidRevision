@@ -72,6 +72,8 @@ private void createTextArea()
             cartField.append("\n");
            cartField.append("TOTAL:\t"+numberAsStriing);
         }  
+        
+        Variables.cartInfo = cartField.getText();
     }
 
 //	BookDBAccess bookdba = new BookDBAccess();//create object to get access 
