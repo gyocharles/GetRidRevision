@@ -126,6 +126,8 @@ public class CheckoutFrame extends JFrame {
 					e1.printStackTrace();
 				}
 
+				Variables.cart.clear(); //clears the cart once this button is pressed!!
+				
 				dispose();				
 				JFrame frame = new MenuFrame();
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
